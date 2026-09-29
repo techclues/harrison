@@ -1,0 +1,44 @@
+/* Light-only shell additions. The approved Harrison styling remains in styles.css. */
+body.visari-mode.light-mode{color-scheme:light}
+.site-header{isolation:isolate}
+.header-inner{overflow:visible}
+.desktop-nav{gap:clamp(14px,2vw,28px)}
+.nav-services{position:relative;display:flex;align-items:center;gap:2px}
+.nav-dropdown-toggle{display:grid;place-items:center;width:22px;height:32px;padding:0;border:0;background:transparent;color:#303949;cursor:pointer;border-radius:5px}
+.nav-dropdown-toggle:hover,.nav-dropdown-toggle:focus-visible{background:rgba(160,131,89,.12)}
+.nav-dropdown-toggle svg{display:block;transition:transform .25s var(--ease)}
+.nav-dropdown-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+.services-dropdown::after{content:"";position:absolute;left:0;right:0;top:-22px;height:22px}
+.services-dropdown{position:absolute;top:calc(100% + 18px);left:50%;transform:translateX(-42%);width:min(760px,calc(100vw - 48px));padding:26px;background:rgba(250,249,245,.98);border:1px solid #d7d5cd;border-radius:16px;box-shadow:0 28px 65px rgba(36,46,61,.16);white-space:normal;color:#242e3d;z-index:30}
+.services-dropdown[hidden],.mobile-services-list[hidden]{display:none!important}
+.services-dropdown::before{content:"";position:absolute;top:-8px;left:41%;width:15px;height:15px;background:#faf9f5;transform:rotate(45deg);border-left:1px solid #d7d5cd;border-top:1px solid #d7d5cd}
+.services-dropdown-intro{display:flex;align-items:baseline;gap:14px;padding:0 2px 20px;border-bottom:1px solid #d7d5cd}
+.services-dropdown-intro span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#a08359}
+.services-dropdown-intro strong{font-size:20px;font-weight:500;letter-spacing:-.03em}
+.desktop-nav .services-dropdown-intro a{margin-left:auto;color:#a08359;font-size:13px}
+.services-dropdown-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 22px;padding-top:16px}
+.desktop-nav .services-dropdown-links a{display:block;padding:9px 10px;border-radius:7px;color:#384150;white-space:normal;font-size:14px}
+.desktop-nav .services-dropdown-links a:hover,.desktop-nav .services-dropdown-links a:focus-visible{background:#f1eee5;color:#906b2e}
+.desktop-nav .services-dropdown-links a::after,.desktop-nav .services-dropdown-intro a::after{display:none}
+body.visari-mode.light-mode .header-cta{background:transparent;color:#242e3d;border:1px solid rgba(36,46,61,.34);min-height:43px;padding:10px 18px;white-space:nowrap}
+.mobile-services-row{display:flex;align-items:center;border-bottom:1px solid rgba(36,46,61,.13)}
+.mobile-nav .mobile-services-row a{flex:1;border:0}
+.mobile-services-row button{font:inherit;font-size:25px;border:0;background:none;color:#303949;min-width:45px;min-height:45px;cursor:pointer}
+.mobile-services-list{padding:3px 10px 10px 20px;background:#e9e7df;border-radius:10px}
+.mobile-nav .mobile-services-list a{padding:9px 0;font-size:14px}
+@media(max-width:1100px){.desktop-nav{gap:14px;font-size:13px}.services-dropdown{transform:translateX(-38%)}.header-side{gap:8px}}
+@media(max-width:960px){.desktop-nav{display:none}.services-dropdown{display:none}.mobile-nav:not([hidden]){display:block}}
+/* No-JS fallback: keep every route reachable without the menu scripts. */
+@media(max-width:960px){.no-js .menu-toggle{display:none}.no-js .mobile-nav[hidden]{display:block!important;position:static;padding:96px var(--gutter) 20px;background:#f7f6f2}.no-js .mobile-services-row button{display:none}.no-js .mobile-services-list[hidden]{display:block!important}}
+
+/* Match the Home header on every page: a flat translucent band, no inset card or shadow. */
+@media(min-width:961px){body.visari-mode.light-mode .header-inner{background:transparent;border-color:transparent;box-shadow:none;backdrop-filter:none}}
+
+/* Brand logo (transparent PNG) replaces the earlier text wordmark. */
+body.visari-mode .brand{flex:0 0 auto;width:auto;height:auto;margin:0;border:0;border-radius:0;overflow:visible;box-shadow:none}
+body.visari-mode .brand::before{content:none;display:none}
+body.visari-mode .brand img{display:block;width:auto;height:76px;max-width:none;object-fit:contain;filter:none}
+body.visari-mode .site-header .header-inner{min-height:96px}
+body.visari-mode .footer-brand img{display:block;width:auto;height:110px;filter:none}
+@media(max-width:680px){body.visari-mode .brand img{height:58px}body.visari-mode .site-header .header-inner{min-height:78px}}
+body.visari-mode .footer-brand::before{content:none;display:none}
