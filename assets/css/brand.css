@@ -1,0 +1,64 @@
+/*
+ * Brand layer — loaded last. Applies the Harrison design system (tokens.css) on top of the
+ * approved layout: brand typefaces, heading colour and logo clear space.
+ * Typographic properties use !important on purpose: the legacy stylesheet sets them with many
+ * page-specific overrides, and this layer is the single place that enforces the brand type system.
+ */
+
+/* ---- Headings: primary typeface (Trajan Pro, Cinzel fallback), navy ---- */
+body.visari-mode :is(h1,h2,h3){
+  font-family:var(--font-heading)!important;
+  font-weight:var(--fw-heading)!important;
+  font-style:normal!important;
+  text-transform:none!important;
+  letter-spacing:.012em!important;
+  line-height:1.22!important;
+  color:var(--color-heading);
+}
+body.visari-mode h1{font-size:var(--fs-h1)!important}
+body.visari-mode h2{font-size:var(--fs-h2)!important}
+body.visari-mode h3{font-size:var(--fs-h3)!important}
+
+/* Emphasised words keep the accent colour but no longer switch to the old italic serif */
+body.visari-mode :is(h1,h2,h3) em{
+  font-family:inherit!important;
+  font-style:normal!important;
+  font-weight:inherit!important;
+  letter-spacing:inherit!important;
+  color:var(--brand-gold);
+}
+body.visari-mode :is(h1,h2,h3) .gold-word{color:var(--brand-gold)}
+
+/* Home About statement is a long sentence: keep it readable at a calmer size */
+body.visari-mode .v-about .v-copy h2{font-size:clamp(24px,2.7vw,36px)!important;line-height:1.38!important}
+
+/* Hero sits on the navy scrim: white / light gold, never navy */
+body.visari-mode.light-mode .v-hero h1,
+body.visari-mode.light-mode .v-hero h1 .hero-title-line{color:#fff}
+body.visari-mode.light-mode .v-hero h1 em,
+body.visari-mode.light-mode .v-hero h1 .hero-title-line--accent{color:var(--brand-gold-light)}
+
+/* Interactive list titles (pinned sections) use the primary typeface too */
+body.visari-mode .pin-title{font-family:var(--font-heading)!important;font-weight:600!important;letter-spacing:.01em!important;font-size:clamp(17px,1.6vw,21px)!important;color:var(--brand-navy)}
+body.visari-mode .pin-js .pin-item:not(.is-active) .pin-title{color:#a3a9bf}
+body.visari-mode .pin-panel h2 em{color:var(--brand-gold)}
+body.visari-mode .pin-figure figcaption{font-family:var(--font-heading)!important;font-style:normal!important;font-weight:600}
+
+/* ---- Body copy: secondary typeface, brand ink ---- */
+body.visari-mode{font-family:var(--font-body);color:var(--color-text)}
+
+/* ---- Footer: logo clear space (Brand Guide: keep at least 50px around the logo) ---- */
+body.visari-mode .footer-brand{display:block;margin-bottom:0}
+body.visari-mode .footer-brand img{margin-bottom:var(--logo-clear)}
+body.visari-mode .footer-statement{margin:0;font-family:var(--font-heading)!important;font-weight:600;font-size:15px!important;line-height:1.7!important;letter-spacing:.06em;color:var(--brand-navy)}
+
+/* ---- Dividers use the brand grey ---- */
+body.visari-mode .footer-bottom,
+body.visari-mode .site-footer{border-color:var(--brand-grey)}
+
+/* Hero second line aligns flush with the first (brand type has no italic stagger) */
+body.visari-mode .v-hero h1 .hero-title-line--accent{margin-left:0!important;padding-left:0!important;text-indent:0!important;display:inline-block;animation-name:hero-title-rise!important}
+
+/* Small gold labels on light surfaces use the AA-safe gold (see DESIGN-SYSTEM.md, Colour) */
+body.visari-mode.light-mode :is(.eyebrow-dark,.v-section-intro .v-label,.pin-panel .eyebrow-dark){color:var(--brand-gold-text)}
+body.visari-mode.light-mode .eyebrow-dark::before{background:var(--brand-gold-text)}

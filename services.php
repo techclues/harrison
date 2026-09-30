@@ -6,16 +6,29 @@ $currentNav = 'services';
 require __DIR__ . '/includes/header.php';
 ?>
 <section class="page-hero-dark"><div class="wrap"><div class="page-hero-grid"><div><p class="eyebrow">The work behind the clarity</p><h1>Every number<br>has a <em>next move.</em></h1></div><p class="page-intro">From the detail of your day-to-day accounts to the decisions that shape your future, we bring the right support into focus.</p></div><div class="service-hero-line"><span>Accounting</span><span>Tax</span><span>Payroll</span><span>Advisory</span><span>Business support</span></div></div></section>
-  <section class="section light-section service-catalogue" aria-labelledby="catalogue-heading"><div class="wrap"><div class="section-heading-row"><div><p class="eyebrow eyebrow-dark">Our services</p><h2 id="catalogue-heading">Practical expertise.<br><em>Useful perspective.</em></h2></div><p class="section-lead">A complete view of the numbers, with a clear sense of what they mean for you.</p></div><div class="catalogue-grid">
-    <details class="catalogue-card" id="company-accounts"><summary><span class="catalogue-number">01</span><span class="catalogue-arrow">↗</span><h3>Company accounts</h3><p>A clearer picture of your business, properly presented.</p></summary><div class="catalogue-body"><p>Accounts that help you understand performance, responsibilities and what deserves attention next.</p><a class="link-dark" href="services/accounting-services.php">Talk about accounts <span>↗</span></a></div></details>
-    <details class="catalogue-card" id="tax"><summary><span class="catalogue-number">02</span><span class="catalogue-arrow">↗</span><h3>Tax &amp; self assessment</h3><p>Confidence around what you owe and why.</p></summary><div class="catalogue-body"><p>Practical support for personal and business tax, explained clearly and prepared with care.</p><a class="link-dark" href="services/personal-tax.php">Talk about tax <span>↗</span></a></div></details>
-    <details class="catalogue-card" id="payroll"><summary><span class="catalogue-number">03</span><span class="catalogue-arrow">↗</span><h3>Payroll &amp; pensions</h3><p>Reliable support for the people who keep your business moving.</p></summary><div class="catalogue-body"><p>Consistent payroll processes, useful reporting and support for workplace pension administration.</p><a class="link-dark" href="services/payroll.php">Talk about payroll <span>↗</span></a></div></details>
-    <details class="catalogue-card" id="bookkeeping"><summary><span class="catalogue-number">04</span><span class="catalogue-arrow">↗</span><h3>Bookkeeping &amp; VAT</h3><p>Keep the everyday in good order.</p></summary><div class="catalogue-body"><p>Accurate records and organised VAT routines that make the bigger decisions easier.</p><a class="link-dark" href="services/bookkeeping-services.php">Talk about bookkeeping <span>↗</span></a></div></details>
-    <details class="catalogue-card" id="advisory"><summary><span class="catalogue-number">05</span><span class="catalogue-arrow">↗</span><h3>Business advisory</h3><p>Turn financial information into a useful plan.</p></summary><div class="catalogue-body"><p>Connect cash flow, budgets and business milestones to a conversation about where you want to go.</p><a class="link-dark" href="services/business-tax-advice.php">Talk about advisory <span>↗</span></a></div></details>
-    <details class="catalogue-card" id="formation"><summary><span class="catalogue-number">06</span><span class="catalogue-arrow">↗</span><h3>Starting a business</h3><p>Build a thoughtful foundation for your next chapter.</p></summary><div class="catalogue-body"><p>Understand structure, records and the practical accounting habits that support a good start.</p><a class="link-dark" href="who-we-help.php#start-ups">Talk about starting up <span>↗</span></a></div></details>
-    <details class="catalogue-card" id="corporation-tax"><summary><span class="catalogue-number">07</span><span class="catalogue-arrow">↗</span><h3>Corporation tax</h3><p>Clarity for your company’s tax position.</p></summary><div class="catalogue-body"><p>Preparation and a clear conversation around computations, returns and filing responsibilities.</p><a class="link-dark" href="services/corporation-tax.php">Talk about corporation tax <span>↗</span></a></div></details>
-    <details class="catalogue-card" id="personal-tax"><summary><span class="catalogue-number">08</span><span class="catalogue-arrow">↗</span><h3>Personal tax</h3><p>Considered support for your circumstances.</p></summary><div class="catalogue-body"><p>Support for income sources, rental records and the personal details behind every return.</p><a class="link-dark" href="services/personal-tax.php">Talk about personal tax <span>↗</span></a></div></details>
-  </div></div></section>
+  <?php
+$pinItems = [
+  ['Company accounts', 'A clearer picture of your business, properly presented.', 'Accounts that help you understand performance, responsibilities and what deserves attention next.', 'services/accounting-services.php', 'Talk about accounts', 'conversation.webp', '30% 50%'],
+  ['Tax & self assessment', 'Confidence around what you owe and why.', 'Practical support for personal and business tax, explained clearly and prepared with care.', 'services/personal-tax.php', 'Talk about tax', 'architecture.webp', '50% 20%'],
+  ['Payroll & pensions', 'Reliable support for the people who keep your business moving.', 'Consistent payroll processes, useful reporting and support for workplace pension administration.', 'services/payroll.php', 'Talk about payroll', 'conversation.webp', '75% 40%'],
+  ['Bookkeeping & VAT', 'Keep the everyday in good order.', 'Accurate records and organised VAT routines that make the bigger decisions easier.', 'services/bookkeeping-services.php', 'Talk about bookkeeping', 'architecture.webp', '50% 65%'],
+  ['Business advisory', 'Turn financial information into a useful plan.', 'Connect cash flow, budgets and business milestones to a conversation about where you want to go.', 'services/business-tax-advice.php', 'Talk about advisory', 'conversation.webp', '55% 75%'],
+  ['Starting a business', 'Build a thoughtful foundation for your next chapter.', 'Understand structure, records and the practical accounting habits that support a good start.', 'who-we-help.php#start-ups', 'Talk about starting up', 'architecture.webp', '50% 90%'],
+  ['Corporation tax', 'Clarity for your company’s tax position.', 'Preparation and a clear conversation around computations, returns and filing responsibilities.', 'services/corporation-tax.php', 'Talk about corporation tax', 'conversation.webp', '15% 30%'],
+  ['Personal tax', 'Considered support for your circumstances.', 'Support for income sources, rental records and the personal details behind every return.', 'services/personal-tax.php', 'Talk about personal tax', 'architecture.webp', '40% 45%'],
+];
+?>
+<?php
+$pinEyebrow = 'Our services';
+$pinHeading = 'Practical expertise.<br><em>Useful perspective.</em>';
+$pinHeadingId = 'catalogue-heading';
+$pinLead = 'A complete view of the numbers, with a clear sense of what they mean for you.';
+$pinWatermark = 'Services';
+$pinDots = false;
+$pinTypewriter = false;
+$pinFooterLink = null;
+require __DIR__ . '/includes/pin-section.php';
+?>
   <section class="section light-section all-services" aria-labelledby="all-services-heading"><div class="wrap"><div class="section-heading-row"><div><p class="eyebrow-dark">All services</p><h2 id="all-services-heading">Find the <em>right support.</em></h2></div><p class="section-lead">Every service has its own page, grouped by what you are trying to get done.</p></div>
 <?php foreach (SERVICE_GROUPS as $groupKey => $groupLabel): ?>
     <h3 class="service-group-title"><?= h($groupLabel) ?></h3>

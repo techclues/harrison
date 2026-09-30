@@ -42,3 +42,28 @@ body.visari-mode .site-header .header-inner{min-height:96px}
 body.visari-mode .footer-brand img{display:block;width:auto;height:110px;filter:none}
 @media(max-width:680px){body.visari-mode .brand img{height:58px}body.visari-mode .site-header .header-inner{min-height:78px}}
 body.visari-mode .footer-brand::before{content:none;display:none}
+
+/* Hero legibility: keep the photo vivid (no cream haze); a brand-navy scrim sits behind the copy only,
+   fades out before the right-hand photo and below the light header, and the copy turns white. */
+body.visari-mode.light-mode .v-hero-bg img{filter:brightness(1) saturate(.9) contrast(1.03)}
+body.visari-mode.light-mode .v-hero-shade{
+  background:linear-gradient(90deg,rgba(24,31,64,.9) 0%,rgba(24,31,64,.78) 30%,rgba(24,31,64,.34) 52%,rgba(24,31,64,0) 70%);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,transparent 96px,#000 260px);
+          mask-image:linear-gradient(180deg,transparent 0,transparent 96px,#000 260px)}
+body.visari-mode.light-mode .v-hero::after{opacity:0}
+body.visari-mode.light-mode .v-hero-content .v-kicker{color:#e3cd8f}
+body.visari-mode.light-mode .v-hero-content h1 .hero-title-line{color:#fff;text-shadow:0 2px 22px rgba(10,14,35,.35)}
+body.visari-mode.light-mode .v-hero-content h1 .hero-title-line--accent{color:#e3cd8f}
+body.visari-mode.light-mode .v-hero-copy{color:rgba(255,255,255,.9)}
+body.visari-mode.light-mode .v-actions .v-btn:not(.v-btn-solid){color:#fff;border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.08)}
+body.visari-mode.light-mode .v-actions .v-btn:not(.v-btn-solid):hover{background:rgba(255,255,255,.2);border-color:#fff}
+body.visari-mode.light-mode .v-hero-foot,body.visari-mode.light-mode .v-hero-foot *{color:#5e6674}
+
+/* Blend section boundaries on Home (no hard edges). */
+/* 1. Hero photo dissolves into the cream About section. */
+body.visari-mode.light-mode .v-hero-shade::after{content:"";position:absolute;left:0;right:0;bottom:0;height:200px;pointer-events:none;background:linear-gradient(180deg,rgba(247,246,241,0) 0%,rgba(247,246,241,.6) 55%,#f7f6f1 100%)}
+/* 2. About glow sits fully inside the section so overflow no longer slices it flat. */
+body.visari-mode.light-mode .v-about::after{bottom:10%;right:-6%;height:60%}
+/* 3. Neighbouring light sections share one tone; the founder section eases in from it. */
+.pin-section{background:#f7f6f1}
+body.visari-mode.light-mode .v-founder{background:linear-gradient(180deg,#f7f6f1 0,#ecebe5 200px)}

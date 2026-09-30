@@ -17,10 +17,13 @@ $isServiceDetail = $isServiceDetail ?? false;
   <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#f7f6f2">
   <link rel="icon" type="image/png" href="<?= h($basePath) ?>assets/favicon.png">
+  <link rel="preload" href="<?= h($basePath) ?>assets/fonts/cinzel-700.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="<?= h($basePath) ?>assets/roboto-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="<?= h($basePath) ?>assets/css/tokens.css">
   <link rel="stylesheet" href="<?= h($basePath) ?>assets/css/styles.css">
   <link rel="stylesheet" href="<?= h($basePath) ?>assets/css/skeleton.css">
   <link rel="stylesheet" href="<?= h($basePath) ?>assets/css/pages.css">
+  <link rel="stylesheet" href="<?= h($basePath) ?>assets/css/brand.css">
 </head>
 <body id="top" class="visari-mode light-mode" data-contact-url="<?= h($basePath) ?>contact.php">
 <a class="skip-link" href="#main">Skip to content</a>

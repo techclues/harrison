@@ -16,5 +16,8 @@
 <script src="<?= h($basePath) ?>assets/js/site.js" defer></script>
 <script src="<?= h($basePath) ?>assets/js/animations.js" defer></script>
 <script src="<?= h($basePath) ?>assets/js/typewriter.js" defer></script>
+<script src="<?= h($basePath) ?>assets/js/dot-field.js" defer></script>
+<script src="<?= h($basePath) ?>assets/js/pin-scroll.js" defer></script>
+<script src="<?= h($basePath) ?>assets/js/scroll-lines.js" defer></script>
 </body>
 </html>
