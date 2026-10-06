@@ -8,7 +8,6 @@ declare(strict_types=1);
  *   $pinHeading    trusted heading HTML (may contain <br> and <em>)
  *   $pinHeadingId  id for the heading (aria-labelledby target)
  *   $pinLead       intro paragraph
- *   $pinWatermark  faded background word
  *   $pinDots       true to add the interactive dot canvas behind the content
  *   $pinFooterLink optional [href, label] shown under the list
  *   $pinTypewriter true to use the scroll typewriter on the heading
@@ -18,7 +17,7 @@ declare(strict_types=1);
 <?php if (!empty($pinDots)): ?>
     <canvas class="dot-field" data-dot-field aria-hidden="true"></canvas>
 <?php endif; ?>
-    <span class="pin-watermark" aria-hidden="true"><?= h($pinWatermark) ?></span>
+    <img class="pin-watermark" src="assets/h-mark.png" alt="" aria-hidden="true" width="423" height="363">
     <div class="wrap pin-grid">
       <div class="pin-media" aria-hidden="true">
 <?php foreach ($pinItems as $pinN => [, , , , , $pinImg, $pinPos]): ?>

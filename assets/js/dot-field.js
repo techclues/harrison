@@ -13,6 +13,12 @@
   const DAMPING = 0.82;
   const BASE = 'rgba(34,45,101,0.2)';   // brand navy
   const ACTIVE = '160,131,89';           // brand gold
+  // First visit greeting: the first time the cursor enters a field, dots rush in from all sides
+  // and gather in a ring around it, then release and the normal push-away behaviour takes over.
+  const GREET_MS = 1600;     // length of the greeting
+  const GREET_RADIUS = 460;  // how far away dots respond
+  const GREET_PULL = 0.11;   // attraction strength
+  const GREET_RING = 34;     // dots gather on a ring this far from the cursor (not on top of it)
 
   canvases.forEach(canvas => {
     const ctx = canvas.getContext('2d');
@@ -20,6 +26,7 @@
     const host = canvas.parentElement;
     let dots = [], w = 0, h = 0, dpr = 1;
     let pointer = null, visible = false, raf = 0;
+    let greetStart = 0, greeted = false;
 
     const build = () => {
       const rect = host.getBoundingClientRect();
@@ -66,9 +73,19 @@
       const px = pointer ? pointer.x - rect.left : -9999;
       const py = pointer ? pointer.y - rect.top : -9999;
       let energy = 0;
+      // Greeting envelope: rises fast, holds, then eases off (0 when not greeting).
+      const gt = greetStart ? (performance.now() - greetStart) / GREET_MS : 1;
+      const greet = gt < 1 ? Math.sin(Math.PI * Math.min(1, gt * 1.35)) ** 0.6 * (1 - gt) ** 0.35 : 0;
+      if (greetStart && gt >= 1) greetStart = 0;
       for (const d of dots) {
         const dx = d.x - px, dy = d.y - py, dist = Math.hypot(dx, dy);
-        if (dist < RADIUS && dist > 0.01) {
+        if (greet > 0 && pointer && dist < GREET_RADIUS && dist > 0.01) {
+          // Pull towards a ring around the cursor; nearer dots answer first, farther ones follow.
+          const reach = (1 - dist / GREET_RADIUS) ** 0.7;
+          const f = (dist - GREET_RING) * GREET_PULL * greet * reach;
+          d.vx -= (dx / dist) * f;
+          d.vy -= (dy / dist) * f;
+        } else if (dist < RADIUS && dist > 0.01) {
           const f = (1 - dist / RADIUS) ** 2 * PUSH;
           d.vx += (dx / dist) * f;
           d.vy += (dy / dist) * f;
@@ -100,6 +117,9 @@
       const inside = e.clientX >= rect.left - RADIUS && e.clientX <= rect.right + RADIUS
         && e.clientY >= rect.top - RADIUS && e.clientY <= rect.bottom + RADIUS;
       pointer = inside ? { x: e.clientX, y: e.clientY } : null;
+      // Greet once per field per page view, when the cursor first comes onto the section itself.
+      const onSection = e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
+      if (onSection && !greeted) { greeted = true; greetStart = performance.now(); }
       wake();
     }, { passive: true });
     document.addEventListener('pointerleave', () => { pointer = null; wake(); });

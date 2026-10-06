@@ -1,0 +1,5 @@
+# Runtime data and secrets: never committed
+storage/*
+!storage/.gitkeep
+!storage/.htaccess
+config/mail.local.php

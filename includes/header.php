@@ -6,6 +6,7 @@ $pageTitle = $pageTitle ?? 'Harrison Accountants';
 $pageDescription = $pageDescription ?? 'Financial clarity and considered accounting support from Harrison.';
 $currentNav = $currentNav ?? '';
 $isServiceDetail = $isServiceDetail ?? false;
+$isAboutSub = $isAboutSub ?? false;
 ?>
 <!doctype html>
 <html lang="en-GB" class="no-js">
@@ -15,10 +16,14 @@ $isServiceDetail = $isServiceDetail ?? false;
   <title><?= h($pageTitle) ?> | Harrison Accountants</title>
   <meta name="description" content="<?= h($pageDescription) ?>">
   <meta name="robots" content="noindex,nofollow">
-  <meta name="theme-color" content="#f7f6f2">
-  <link rel="icon" type="image/png" href="<?= h($basePath) ?>assets/favicon.png">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" type="image/png" sizes="192x192" href="<?= h($basePath) ?>assets/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="<?= h($basePath) ?>assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="<?= h($basePath) ?>assets/apple-touch-icon.png">
   <link rel="preload" href="<?= h($basePath) ?>assets/fonts/cinzel-700.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="<?= h($basePath) ?>assets/roboto-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- three.js (pinned) for the optional 3D pieces; modules load only on pages that use them -->
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"}}</script>
   <link rel="stylesheet" href="<?= h($basePath) ?>assets/css/tokens.css">
   <link rel="stylesheet" href="<?= h($basePath) ?>assets/css/styles.css">
   <link rel="stylesheet" href="<?= h($basePath) ?>assets/css/skeleton.css">
@@ -30,40 +35,71 @@ $isServiceDetail = $isServiceDetail ?? false;
 <div class="ambient-gold" aria-hidden="true"></div>
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="<?= h($basePath) ?>index.php" aria-label="Harrison Accountants, home"><img src="<?= h($basePath) ?>assets/harrison-logo.png" width="674" height="371" alt="Harrison Accountants"></a>
+    <a class="brand" href="<?= h($basePath) ?>index.php" aria-label="Harrison Accountants, home"><img src="<?= h($basePath) ?>assets/harrison-logo.png" width="1412" height="775" alt="Harrison Accountants"></a>
     <nav class="desktop-nav" aria-label="Main navigation">
       <a href="<?= h($basePath) ?>index.php"<?= $currentNav === 'home' ? ' aria-current="page"' : '' ?>>Home</a>
-      <div class="nav-services" data-services-menu>
+      <div class="nav-services" data-dropdown>
         <a href="<?= h($basePath) ?>services.php"<?= $currentNav === 'services' ? ($isServiceDetail ? ' aria-current="true"' : ' aria-current="page"') : '' ?>>Services</a>
-        <button class="nav-dropdown-toggle" type="button" aria-label="Show Services pages" aria-controls="desktop-services-menu" aria-expanded="false" data-services-toggle><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <div class="services-dropdown" id="desktop-services-menu" hidden>
-          <div class="services-dropdown-intro"><span>Explore expertise</span><strong>Services, clearly considered.</strong><a href="<?= h($basePath) ?>services.php">View all services</a></div>
-          <div class="services-dropdown-links">
-            <?php foreach (services() as $navSlug => $navService): ?>
-              <a href="<?= h(service_url($navSlug, $basePath)) ?>"><?= h($navService['title']) ?></a>
-            <?php endforeach; ?>
+        <button class="nav-dropdown-toggle" type="button" aria-label="Show Services menu" aria-controls="desktop-services-menu" aria-expanded="false" data-dropdown-toggle><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="services-dropdown mega-menu" id="desktop-services-menu" hidden>
+          <div class="mega-col">
+            <p class="mega-title"><a href="<?= h($basePath) ?>who-we-help.php">Who We Help</a></p>
+            <ul>
+              <?php foreach (audiences() as $navSlug => $navAudience): ?>
+                <li><a href="<?= h(audience_url($navSlug, $basePath)) ?>"><?= h($navAudience['title']) ?></a></li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+          <div class="mega-col mega-col--wide">
+            <p class="mega-title"><a href="<?= h($basePath) ?>services.php">What We Provide</a></p>
+            <ul class="mega-two">
+              <?php foreach (services() as $navSlug => $navService): ?>
+                <li><a href="<?= h(service_url($navSlug, $basePath)) ?>"><?= h($navService['title']) ?></a></li>
+              <?php endforeach; ?>
+            </ul>
           </div>
         </div>
       </div>
-      <a href="<?= h($basePath) ?>who-we-help.php"<?= $currentNav === 'who' ? ' aria-current="page"' : '' ?>>Who We Help</a>
-      <a href="<?= h($basePath) ?>about.php"<?= $currentNav === 'about' ? ' aria-current="page"' : '' ?>>About</a>
+      <div class="nav-services" data-dropdown>
+        <a href="<?= h($basePath) ?>about.php"<?= $currentNav === 'about' ? ($isAboutSub ? ' aria-current="true"' : ' aria-current="page"') : '' ?>>About</a>
+        <button class="nav-dropdown-toggle" type="button" aria-label="Show About menu" aria-controls="desktop-about-menu" aria-expanded="false" data-dropdown-toggle><svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="services-dropdown nav-small-menu" id="desktop-about-menu" hidden>
+          <ul>
+            <?php foreach (ABOUT_PAGES as $navFile => $navLabel): ?>
+              <li><a href="<?= h($basePath . $navFile) ?>"><?= h($navLabel) ?></a></li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      </div>
+      <a href="<?= h($basePath) ?>news.php"<?= $currentNav === 'news' ? ' aria-current="page"' : '' ?>>News</a>
       <a href="<?= h($basePath) ?>contact.php"<?= $currentNav === 'contact' ? ' aria-current="page"' : '' ?>>Contact</a>
     </nav>
-    <div class="header-side"><a class="btn header-cta" href="<?= h($basePath) ?>contact.php">Let’s talk</a></div>
+    <div class="header-side"><a class="btn header-cta" href="<?= h($basePath) ?>appointment.php"<?= $currentNav === 'appointment' ? ' aria-current="page"' : '' ?>>Book an appointment</a></div>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-navigation" aria-label="Open navigation" data-mobile-toggle><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
   </div>
 </header>
 <nav class="mobile-nav" id="mobile-navigation" aria-label="Mobile navigation" hidden>
   <div class="mobile-nav-label">Harrison / Navigation</div>
   <a href="<?= h($basePath) ?>index.php"<?= $currentNav === 'home' ? ' aria-current="page"' : '' ?>>Home</a>
-  <div class="mobile-services-row"><a href="<?= h($basePath) ?>services.php">Services</a><button type="button" aria-label="Expand Services pages" aria-expanded="false" aria-controls="mobile-services-menu" data-mobile-services-toggle>+</button></div>
+  <div class="mobile-services-row"><a href="<?= h($basePath) ?>services.php">Services</a><button type="button" aria-label="Expand Services menu" aria-expanded="false" aria-controls="mobile-services-menu" data-mobile-sub-toggle>+</button></div>
   <div class="mobile-services-list" id="mobile-services-menu" hidden>
+    <p class="mobile-sub-title"><a href="<?= h($basePath) ?>who-we-help.php">Who We Help</a></p>
+    <?php foreach (audiences() as $navSlug => $navAudience): ?>
+      <a href="<?= h(audience_url($navSlug, $basePath)) ?>"><?= h($navAudience['title']) ?></a>
+    <?php endforeach; ?>
+    <p class="mobile-sub-title"><a href="<?= h($basePath) ?>services.php">What We Provide</a></p>
     <?php foreach (services() as $navSlug => $navService): ?>
       <a href="<?= h(service_url($navSlug, $basePath)) ?>"><?= h($navService['title']) ?></a>
     <?php endforeach; ?>
   </div>
-  <a href="<?= h($basePath) ?>who-we-help.php"<?= $currentNav === 'who' ? ' aria-current="page"' : '' ?>>Who We Help</a>
-  <a href="<?= h($basePath) ?>about.php"<?= $currentNav === 'about' ? ' aria-current="page"' : '' ?>>About</a>
+  <div class="mobile-services-row"><a href="<?= h($basePath) ?>about.php">About</a><button type="button" aria-label="Expand About menu" aria-expanded="false" aria-controls="mobile-about-menu" data-mobile-sub-toggle>+</button></div>
+  <div class="mobile-services-list" id="mobile-about-menu" hidden>
+    <?php foreach (ABOUT_PAGES as $navFile => $navLabel): ?>
+      <a href="<?= h($basePath . $navFile) ?>"><?= h($navLabel) ?></a>
+    <?php endforeach; ?>
+  </div>
+  <a href="<?= h($basePath) ?>news.php"<?= $currentNav === 'news' ? ' aria-current="page"' : '' ?>>News</a>
   <a href="<?= h($basePath) ?>contact.php"<?= $currentNav === 'contact' ? ' aria-current="page"' : '' ?>>Contact</a>
+  <a class="btn btn-gold mobile-cta" href="<?= h($basePath) ?>appointment.php">Book an appointment</a>
 </nav>
 <main id="main">

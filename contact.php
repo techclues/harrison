@@ -1,16 +1,20 @@
 <?php
 declare(strict_types=1);
 require_once __DIR__ . '/includes/site.php';
+require_once __DIR__ . '/includes/forms.php';
 $pageTitle = 'Contact';
-$pageDescription = 'Get in touch with Harrison Accountants. Contact details and enquiry form to be confirmed.';
+$pageDescription = 'Contact Harrison Accountants in Hayes, London. Call 020 8573 2666 or send us a message.';
 $currentNav = 'contact';
 require __DIR__ . '/includes/header.php';
 ?>
 <section class="detail-hero" aria-labelledby="page-heading">
-  <div class="wrap detail-hero-inner" data-reveal>
-    <p class="eyebrow-dark">Contact</p>
-    <h1 id="page-heading">Let’s <em>talk.</em></h1>
-    <p class="detail-lead">Tell us a little about what you need and we will get back to you.</p>
+  <div class="wrap detail-hero-inner has-art" data-reveal>
+    <div class="hero-copy">
+      <p class="eyebrow-dark">Contact</p>
+      <h1 id="page-heading">Get in touch <em>with us.</em></h1>
+      <p class="detail-lead">It would be great to hear from you. If you have any questions, please do not hesitate to send us a message. We look forward to hearing from you.</p>
+    </div>
+    <?= hero_art('conversation.webp', '28% 45%') ?>
   </div>
 </section>
 
@@ -18,8 +22,7 @@ require __DIR__ . '/includes/header.php';
   <div class="wrap contact-grid">
     <div data-reveal>
       <h2 id="form-heading">Send an enquiry</h2>
-      <p class="preview-banner" role="note"><strong>Preview only.</strong> This form does not send or store anything yet. It will be connected once Harrison confirms where enquiries should go.</p>
-      <form class="contact-form" method="post" novalidate data-preview-form aria-describedby="form-status">
+      <form class="contact-form" method="post" action="send.php" novalidate data-enquiry-form aria-describedby="form-status">
         <div class="field">
           <label for="contact-name">Name <span class="req" aria-hidden="true">*</span></label>
           <input id="contact-name" name="name" type="text" autocomplete="name" required aria-required="true">
@@ -45,19 +48,14 @@ require __DIR__ . '/includes/header.php';
           <label for="contact-message">Message <span class="req" aria-hidden="true">*</span></label>
           <textarea id="contact-message" name="message" rows="6" required aria-required="true"></textarea>
         </div>
-        <button class="btn btn-gold" type="button" aria-disabled="true" data-preview-submit>Send enquiry (disabled in preview)</button>
-        <p class="form-status" id="form-status" role="status" aria-live="polite">Submissions are disabled while this page is in draft.</p>
+        <?php $formType = 'contact'; $formSubmitLabel = 'Send enquiry'; require __DIR__ . '/includes/form-fields.php'; ?>
       </form>
     </div>
     <aside data-reveal aria-labelledby="details-heading">
-      <h2 id="details-heading">Contact details</h2>
-      <p class="preview-banner" role="note">Harrison’s verified details have not been supplied yet. The items below are placeholders.</p>
-      <dl class="contact-details">
-        <?php foreach (CONTACT_PLACEHOLDERS as $label => $value): ?>
-          <dt><?= h($label) ?></dt>
-          <dd><?= h($value) ?></dd>
-        <?php endforeach; ?>
-      </dl>
+      <h2 id="details-heading">Where to find us</h2>
+      <?php require __DIR__ . '/includes/contact-details.php'; ?>
+      <a class="btn btn-gold" href="appointment.php">Book an appointment</a>
+      <?php require __DIR__ . '/includes/contact-aside.php'; ?>
     </aside>
   </div>
 </section>

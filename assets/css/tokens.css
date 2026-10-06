@@ -1,53 +1,71 @@
 /*
  * Harrison Accountants — design tokens.
- * Source of truth: "Brand Guide.pdf" (Brand Identity Design). Documented in /DESIGN-SYSTEM.md.
- * Loaded first; styles.css and later layers reference these values. Change brand values here only.
+ * Source of truth: "Brand Guide.pdf" (Brand Identity Design). Rules: /DESIGN-SYSTEM.md.
+ * Loaded first; brand.css applies them. Every colour in the site CSS must be one of the six
+ * brand colours, white, or a 5%-step tint of a brand colour (checked by tools/brand-colours.py
+ * and tests/skeleton.test.mjs).
  */
 
-/* Primary typeface fallback: Cinzel (SIL OFL) stands in for Trajan Pro until a web licence is supplied. */
+/* Primary typeface: Trajan Pro (licence pending). Cinzel (SIL OFL, self-hosted) stands in. */
 @font-face{font-family:Cinzel;src:url('../fonts/cinzel-600.ttf') format('truetype');font-weight:600;font-style:normal;font-display:swap}
 @font-face{font-family:Cinzel;src:url('../fonts/cinzel-700.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap}
 
 :root{
-  /* ---- Brand palette (Brand Guide p.08) ---- */
-  --brand-navy:#222d65;        /* primary: logo, headings, key UI */
-  --brand-gold:#a08359;        /* accent: rules, icons, large accent text */
-  --brand-gold-light:#d7bb72;  /* accent on dark/navy, primary button fill */
-  --brand-grey:#e5e5e5;        /* dividers, borders, quiet surfaces */
-  --brand-ink:#242e3d;         /* body text, dark neutral */
-  --brand-indigo:#070049;      /* deepest tone: dark bands, hover-on-dark */
+  /* ---- Brand palette (Guide p.08) — exact values ---- */
+  --brand-navy:#222d65;
+  --brand-gold:#a08359;
+  --brand-gold-light:#d7bb72;
+  --brand-grey:#e5e5e5;
+  --brand-ink:#242e3d;
+  --brand-indigo:#070049;
+  --white:#ffffff;
 
-  /* ---- Derived tones (documented, not new hues) ---- */
-  --brand-gold-text:#86693f;   /* gold darkened to pass WCAG AA (4.5:1) for small text on cream */
-  --brand-text-muted:#5d6b8a;  /* secondary text: ink lightened toward navy */
-  --surface:#f7f6f1;           /* page background */
-  --surface-raised:#ffffff;    /* cards, panels */
-  --surface-sunken:#ecebe5;    /* alternate sections */
+  /* ---- Tints used by the site (white mixed with a brand colour) ---- */
+  --grey-25:#f8f8f8;           /* grey 25%  — raised section */
+  --grey-35:#f6f6f6;           /* grey 35%  — page surface */
+  --grey-60:#efefef;           /* grey 60%  — alternate section */
+  --ink-70:#666d77;            /* ink 70%   — secondary text (5.3:1 on white) */
+  --ink-55:#878c94;            /* ink 55%   — disabled / placeholder only */
 
   /* ---- Semantic roles ---- */
+  --surface:var(--grey-35);
+  --surface-raised:var(--white);
+  --surface-alt:var(--grey-60);
   --color-heading:var(--brand-navy);
   --color-text:var(--brand-ink);
-  --color-accent:var(--brand-gold);
+  --color-text-muted:var(--ink-70);
+  --color-label:var(--brand-navy);        /* small labels: navy (gold fails AA at 12pt) */
+  --color-accent:var(--brand-gold);       /* large text, rules, icons */
+  --color-accent-on-dark:var(--brand-gold-light);
   --color-border:var(--brand-grey);
   --color-focus:var(--brand-gold);
+  /* Status colours — a deliberate exception to the six-colour palette (see DESIGN-SYSTEM.md): form
+     success and errors need the conventional green and red to be understood. Always paired with
+     text or an icon, never colour alone. Contrast on white: error 6.5:1, success 5.5:1. */
+  --color-error:#b3261e;
+  --color-error-tint:#fdecea;
+  --color-success:#1b7a3d;
+  --color-success-tint:#e7f4ec;
 
-  /* ---- Typography (Brand Guide p.06–07) ---- */
-  --font-heading:"Trajan Pro 3","Trajan Pro",Cinzel,"Times New Roman",serif;  /* primary */
-  --font-body:Roboto,Arial,sans-serif;                                        /* secondary */
-  /* Guide scale: H1 34pt, H2 22pt, H3 18pt, body 14pt, description 12pt (1pt = 1.333px) */
-  --fs-h1:clamp(34px,4.4vw,58px);
-  --fs-h2:clamp(26px,3vw,40px);
-  --fs-h3:clamp(19px,1.7vw,24px);
-  --fs-body:16px;
-  --fs-small:14px;
-  --fw-heading:700;            /* Trajan Pro Bold */
+  /* ---- Typography (Guide p.06–07) — exact sizes ---- */
+  --font-heading:"Trajan Pro 3","Trajan Pro",Cinzel,"Times New Roman",serif;
+  --font-body:Roboto,Arial,sans-serif;
+  --fs-h1:34pt;                /* Trajan Pro Bold */
+  --fs-h2:22pt;                /* Trajan Pro Bold */
+  --fs-h3:18pt;                /* Trajan Pro Bold */
+  --fs-body:14pt;              /* Roboto Medium */
+  --fs-desc:12pt;              /* Roboto Regular */
+  --fw-heading:700;
+  --fw-body:500;
+  --fw-desc:400;
 
-  /* ---- Logo ---- */
-  --logo-clear:50px;           /* minimum clear space around the logo (Brand Guide p.05) */
+  /* ---- Logo (Guide p.05) ---- */
+  --logo-clear:50px;           /* minimum clear space on every side of the complete logo */
   --logo-header-h:76px;
 
   /* ---- Shape & elevation ---- */
   --radius-card:20px;
   --radius-pill:999px;
-  --shadow-card:0 22px 54px rgba(34,45,101,.10);
+  --shadow-card:0 22px 54px rgba(34,45,101,.1);
 }
+@media(max-width:680px){:root{--logo-header-h:58px}}

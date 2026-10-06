@@ -1,64 +1,119 @@
 /*
- * Brand layer — loaded last. Applies the Harrison design system (tokens.css) on top of the
- * approved layout: brand typefaces, heading colour and logo clear space.
- * Typographic properties use !important on purpose: the legacy stylesheet sets them with many
- * page-specific overrides, and this layer is the single place that enforces the brand type system.
+ * Brand layer — loaded last. Enforces the Harrison design system (tokens.css, DESIGN-SYSTEM.md)
+ * over the legacy stylesheet. !important is deliberate: the legacy CSS sets type with hundreds of
+ * page-specific rules, and this file is the single place the brand type system is enforced.
  */
 
-/* ---- Headings: primary typeface (Trajan Pro, Cinzel fallback), navy ---- */
-body.visari-mode :is(h1,h2,h3){
-  font-family:var(--font-heading)!important;
-  font-weight:var(--fw-heading)!important;
-  font-style:normal!important;
-  text-transform:none!important;
-  letter-spacing:.012em!important;
-  line-height:1.22!important;
-  color:var(--color-heading);
-}
+/* ===================================================================== */
+/* 1. Type system — only the guide's five styles exist on the site        */
+/* ===================================================================== */
+body.visari-mode{font-family:var(--font-body);font-size:var(--fs-body);font-weight:var(--fw-body);line-height:1.6;color:var(--color-text);background:var(--surface)}
+body.visari-mode *{font-family:inherit!important;font-size:inherit!important;font-weight:inherit!important;font-style:normal!important;letter-spacing:normal!important;line-height:inherit!important}
+body.visari-mode :is(strong,b){font-weight:700!important}
+
+/* Headings: primary typeface, Bold, navy. H1 34pt · H2 22pt · H3 18pt */
+body.visari-mode :is(h1,h2,h3){font-family:var(--font-heading)!important;font-weight:var(--fw-heading)!important;line-height:1.25!important;text-transform:none!important;color:var(--color-heading)!important}
 body.visari-mode h1{font-size:var(--fs-h1)!important}
 body.visari-mode h2{font-size:var(--fs-h2)!important}
 body.visari-mode h3{font-size:var(--fs-h3)!important}
+body.visari-mode :is(h1,h2,h3) :is(em,.gold-word){color:var(--color-accent)!important}
 
-/* Emphasised words keep the accent colour but no longer switch to the old italic serif */
-body.visari-mode :is(h1,h2,h3) em{
-  font-family:inherit!important;
-  font-style:normal!important;
-  font-weight:inherit!important;
-  letter-spacing:inherit!important;
-  color:var(--brand-gold);
-}
-body.visari-mode :is(h1,h2,h3) .gold-word{color:var(--brand-gold)}
+/* Non-heading titles that play the H3 role (card and list titles) */
+body.visari-mode :is(.cta-card-title,.pin-title,.related-card strong,.v-hero-insight strong,.mega-title,.aside-title,.mobile-sub-title,.post-card h2,.review-card cite){font-family:var(--font-heading)!important;font-size:var(--fs-h3)!important;font-weight:var(--fw-heading)!important;line-height:1.3!important;color:var(--color-heading)}
+body.visari-mode .pin-js .pin-item:not(.is-active) .pin-title{color:var(--ink-55)}
 
-/* Home About statement is a long sentence: keep it readable at a calmer size */
-body.visari-mode .v-about .v-copy h2{font-size:clamp(24px,2.7vw,36px)!important;line-height:1.38!important}
+/* Description: 12pt Roboto Regular — labels, navigation, captions, notes, footer links */
+body.visari-mode :is(
+  .eyebrow,.eyebrow-dark,.v-label,.v-kicker,.footer-label,.v-hero-foot,.service-group-title,.audience-links-label,
+  .contact-details dt,.v-insight-top,.v-insight-tags,.v-about-image-note,.mobile-nav-label,
+  .desktop-nav>a,.nav-services>a,.services-dropdown-intro span,.services-dropdown-links a,.services-dropdown-intro a,
+  .crumbs,.footer-links a,.footer-bottom,.draft-note,.form-status,.field .optional,.skip-link,.audience-jump a,
+  .step-list span,.related-card span,.audience-links a,.pin-body a,.pin-all,.aside-nav a,.post-meta,.contact-details dd,.footer-contact
+){font-size:var(--fs-desc)!important;font-weight:var(--fw-desc)!important;line-height:1.55!important}
+body.visari-mode .v-about::before{font-size:var(--fs-desc)!important;font-family:var(--font-body)!important}
 
-/* Hero sits on the navy scrim: white / light gold, never navy */
-body.visari-mode.light-mode .v-hero h1,
-body.visari-mode.light-mode .v-hero h1 .hero-title-line{color:#fff}
-body.visari-mode.light-mode .v-hero h1 em,
-body.visari-mode.light-mode .v-hero h1 .hero-title-line--accent{color:var(--brand-gold-light)}
+/* Small uppercase labels: navy (gold fails AA at 12pt) with light tracking for legibility */
+body.visari-mode :is(.eyebrow,.eyebrow-dark,.v-label,.v-kicker,.footer-label,.v-hero-foot,.service-group-title,.audience-links-label,.contact-details dt,.v-insight-top,.v-insight-tags,.v-about-image-note,.mobile-nav-label){letter-spacing:.08em!important;color:var(--color-label)!important}
+body.visari-mode .v-about::before{letter-spacing:.08em!important;color:var(--color-label)!important}
+body.visari-mode :is(.eyebrow,.eyebrow-dark)::before{background:var(--color-accent)}
+body.visari-mode :is(.audience-card .audience-summary,.step-list li::before,.crumbs a:hover){color:var(--brand-navy)}
 
-/* Interactive list titles (pinned sections) use the primary typeface too */
-body.visari-mode .pin-title{font-family:var(--font-heading)!important;font-weight:600!important;letter-spacing:.01em!important;font-size:clamp(17px,1.6vw,21px)!important;color:var(--brand-navy)}
-body.visari-mode .pin-js .pin-item:not(.is-active) .pin-title{color:#a3a9bf}
-body.visari-mode .pin-panel h2 em{color:var(--brand-gold)}
-body.visari-mode .pin-figure figcaption{font-family:var(--font-heading)!important;font-style:normal!important;font-weight:600}
-
-/* ---- Body copy: secondary typeface, brand ink ---- */
-body.visari-mode{font-family:var(--font-body);color:var(--color-text)}
-
-/* ---- Footer: logo clear space (Brand Guide: keep at least 50px around the logo) ---- */
-body.visari-mode .footer-brand{display:block;margin-bottom:0}
-body.visari-mode .footer-brand img{margin-bottom:var(--logo-clear)}
-body.visari-mode .footer-statement{margin:0;font-family:var(--font-heading)!important;font-weight:600;font-size:15px!important;line-height:1.7!important;letter-spacing:.06em;color:var(--brand-navy)}
-
-/* ---- Dividers use the brand grey ---- */
-body.visari-mode .footer-bottom,
-body.visari-mode .site-footer{border-color:var(--brand-grey)}
-
-/* Hero second line aligns flush with the first (brand type has no italic stagger) */
+/* ===================================================================== */
+/* 2. Home hero — copy sits on a brand-navy scrim                        */
+/* ===================================================================== */
+body.visari-mode.light-mode .v-hero h1,body.visari-mode.light-mode .v-hero h1 .hero-title-line{color:var(--white)!important}
+body.visari-mode.light-mode .v-hero h1 :is(em,.hero-title-line--accent){color:var(--color-accent-on-dark)!important}
 body.visari-mode .v-hero h1 .hero-title-line--accent{margin-left:0!important;padding-left:0!important;text-indent:0!important;display:inline-block;animation-name:hero-title-rise!important}
+body.visari-mode.light-mode .v-hero-content .v-kicker{color:var(--color-accent-on-dark)!important}
+body.visari-mode.light-mode .v-hero-copy{color:var(--white)}
 
-/* Small gold labels on light surfaces use the AA-safe gold (see DESIGN-SYSTEM.md, Colour) */
-body.visari-mode.light-mode :is(.eyebrow-dark,.v-section-intro .v-label,.pin-panel .eyebrow-dark){color:var(--brand-gold-text)}
-body.visari-mode.light-mode .eyebrow-dark::before{background:var(--brand-gold-text)}
+/* ===================================================================== */
+/* 3. Logo clear space (Guide p.05: at least 50px on every side)          */
+/* ===================================================================== */
+/* Header: the translucent band from the approved design, sticky on scroll (see DESIGN-SYSTEM.md §1
+   for the clear-space note). Only the logo size is set here. */
+body.visari-mode .brand img{height:var(--logo-header-h)!important}
+
+/* Footer: 50px between the logo and anything else */
+body.visari-mode .footer-brand{display:block;margin:0}
+body.visari-mode .footer-brand img{margin-bottom:var(--logo-clear)}
+body.visari-mode .footer-statement{margin:0;font-family:var(--font-heading)!important;font-size:var(--fs-desc)!important;font-weight:var(--fw-heading)!important;line-height:1.7!important;color:var(--color-heading)}
+
+/* ===================================================================== */
+/* 4. Components                                                          */
+/* ===================================================================== */
+/* Watermark: the H mark as faded tints (Guide p.19) */
+body.visari-mode .pin-watermark{width:clamp(260px,34vw,520px);height:auto;opacity:.07;top:8%}
+body.visari-mode .pin-figure figcaption{font-family:var(--font-heading)!important;font-size:var(--fs-h2)!important;font-weight:var(--fw-heading)!important;color:var(--white)}
+
+/* Hero insight card: card copy at description size so it fits the card */
+body.visari-mode .v-hero-insight p{font-size:var(--fs-desc)!important;font-weight:var(--fw-desc)!important}
+body.visari-mode .v-hero-insight strong{color:var(--brand-gold)!important}
+body.visari-mode .v-insight-tags{display:flex;flex-wrap:wrap;gap:4px 10px}
+
+/* Form error state: indigo, never colour alone (message text accompanies it) */
+body.visari-mode :is(.field .req,.consent .req){color:var(--color-error)!important}
+body.visari-mode .field-error{font-size:var(--fs-desc)!important;font-weight:var(--fw-desc)!important}
+
+/* Dividers */
+body.visari-mode :is(.footer-bottom,.site-footer){border-color:var(--color-border)}
+
+/* Draft/preview notes: ink text on a light-gold tint (gold text fails AA at body size) */
+body.visari-mode :is(.preview-banner,.draft-note){color:var(--brand-ink)!important}
+
+/* Phones: the hero grows with its content instead of clipping it; the side card and
+   scroll hint are dropped so they never cover the copy or buttons */
+@media(max-width:680px){
+  body.visari-mode .v-hero{height:auto!important;min-height:0!important}
+  body.visari-mode .v-hero-content{height:auto!important;padding-block:128px 64px!important}
+  body.visari-mode :is(.v-hero-insight,.v-hero-foot){display:none!important}
+}
+
+/* ===================================================================== */
+/* 5. Footer — brand navy band with a tapered (curved) top corner          */
+/* ===================================================================== */
+body.visari-mode .site-footer{margin-top:clamp(48px,6vw,80px);padding-top:clamp(64px,7vw,96px);background:var(--brand-navy)!important;border:0!important;border-top-left-radius:clamp(64px,9vw,140px);color:var(--white)}
+body.visari-mode .site-footer .footer-label,body.visari-mode .site-footer .footer-label a{color:var(--brand-gold-light)!important}
+body.visari-mode .site-footer .footer-statement{color:var(--white)}
+body.visari-mode .site-footer :is(.footer-links a,.footer-contact,.footer-contact a){color:rgba(255,255,255,.82)}
+body.visari-mode .site-footer .footer-links a:hover,body.visari-mode .site-footer .footer-contact a:hover{color:var(--brand-gold-light)}
+body.visari-mode .site-footer .footer-links a:focus-visible{outline-color:var(--brand-gold-light)}
+body.visari-mode .site-footer .footer-bottom{border-color:rgba(255,255,255,.18)!important;color:rgba(255,255,255,.7)}
+body.visari-mode .site-footer .footer-bottom a{color:var(--white)}
+
+/* ===================================================================== */
+/* 6. Header — glass band: heavy blur keeps it see-through yet legible     */
+/* ===================================================================== */
+body.visari-mode.light-mode .site-header{
+  background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.38) 100%);
+  -webkit-backdrop-filter:blur(26px) saturate(1.6);backdrop-filter:blur(26px) saturate(1.6);
+  border-bottom:0!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+body.visari-mode.light-mode .site-header.scrolled{
+  background:linear-gradient(180deg,rgba(255,255,255,.7) 0%,rgba(255,255,255,.55) 100%);
+  -webkit-backdrop-filter:blur(26px) saturate(1.6);backdrop-filter:blur(26px) saturate(1.6);
+  border-bottom:0!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+body.visari-mode.light-mode .site-header::before{background:none}
+body.visari-mode.light-mode .desktop-nav a,body.visari-mode.light-mode .nav-dropdown-toggle{color:var(--brand-navy);text-shadow:0 0 12px rgba(255,255,255,.9),0 0 2px rgba(255,255,255,.7)}
+body.visari-mode.light-mode .desktop-nav>a,body.visari-mode.light-mode .nav-services>a{font-weight:var(--fw-body)!important}
+body.visari-mode .cta-card .cta-card-title{color:var(--brand-gold-light)!important}

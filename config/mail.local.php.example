@@ -1,0 +1,13 @@
+<?php
+// Copy to mail.local.php (git-ignored) and edit. Only list what you want to change.
+return [
+    'transport' => 'smtp',
+    'from' => 'info@harrison.co.uk',
+    'smtp' => [
+        'host' => 'mail.harrison.co.uk',   // your host's SMTP server
+        'port' => 587,
+        'secure' => 'tls',
+        'username' => 'info@harrison.co.uk',
+        'password' => 'the mailbox password',
+    ],
+];

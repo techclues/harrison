@@ -4,32 +4,32 @@ body.visari-mode.light-mode{color-scheme:light}
 .header-inner{overflow:visible}
 .desktop-nav{gap:clamp(14px,2vw,28px)}
 .nav-services{position:relative;display:flex;align-items:center;gap:2px}
-.nav-dropdown-toggle{display:grid;place-items:center;width:22px;height:32px;padding:0;border:0;background:transparent;color:#303949;cursor:pointer;border-radius:5px}
+.nav-dropdown-toggle{display:grid;place-items:center;width:22px;height:32px;padding:0;border:0;background:transparent;color:#434c7c;cursor:pointer;border-radius:5px}
 .nav-dropdown-toggle:hover,.nav-dropdown-toggle:focus-visible{background:rgba(160,131,89,.12)}
 .nav-dropdown-toggle svg{display:block;transition:transform .25s var(--ease)}
 .nav-dropdown-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
 .services-dropdown::after{content:"";position:absolute;left:0;right:0;top:-22px;height:22px}
-.services-dropdown{position:absolute;top:calc(100% + 18px);left:50%;transform:translateX(-42%);width:min(760px,calc(100vw - 48px));padding:26px;background:rgba(250,249,245,.98);border:1px solid #d7d5cd;border-radius:16px;box-shadow:0 28px 65px rgba(36,46,61,.16);white-space:normal;color:#242e3d;z-index:30}
+.services-dropdown{position:absolute;top:calc(100% + 18px);left:50%;transform:translateX(-42%);width:min(760px,calc(100vw - 48px));padding:26px;background:rgba(255,255,255,.98);border:1px solid #d3d5d8;border-radius:16px;box-shadow:0 28px 65px rgba(36,46,61,.16);white-space:normal;color:#242e3d;z-index:30}
 .services-dropdown[hidden],.mobile-services-list[hidden]{display:none!important}
-.services-dropdown::before{content:"";position:absolute;top:-8px;left:41%;width:15px;height:15px;background:#faf9f5;transform:rotate(45deg);border-left:1px solid #d7d5cd;border-top:1px solid #d7d5cd}
-.services-dropdown-intro{display:flex;align-items:baseline;gap:14px;padding:0 2px 20px;border-bottom:1px solid #d7d5cd}
+.services-dropdown::before{content:"";position:absolute;top:-8px;left:41%;width:15px;height:15px;background:#f8f8f8;transform:rotate(45deg);border-left:1px solid #d3d5d8;border-top:1px solid #d3d5d8}
+.services-dropdown-intro{display:flex;align-items:baseline;gap:14px;padding:0 2px 20px;border-bottom:1px solid #d3d5d8}
 .services-dropdown-intro span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#a08359}
 .services-dropdown-intro strong{font-size:20px;font-weight:500;letter-spacing:-.03em}
 .desktop-nav .services-dropdown-intro a{margin-left:auto;color:#a08359;font-size:13px}
 .services-dropdown-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 22px;padding-top:16px}
-.desktop-nav .services-dropdown-links a{display:block;padding:9px 10px;border-radius:7px;color:#384150;white-space:normal;font-size:14px}
-.desktop-nav .services-dropdown-links a:hover,.desktop-nav .services-dropdown-links a:focus-visible{background:#f1eee5;color:#906b2e}
+.desktop-nav .services-dropdown-links a{display:block;padding:9px 10px;border-radius:7px;color:#4e5784;white-space:normal;font-size:14px}
+.desktop-nav .services-dropdown-links a:hover,.desktop-nav .services-dropdown-links a:focus-visible{background:#eeeeee;color:#a08359}
 .desktop-nav .services-dropdown-links a::after,.desktop-nav .services-dropdown-intro a::after{display:none}
 body.visari-mode.light-mode .header-cta{background:transparent;color:#242e3d;border:1px solid rgba(36,46,61,.34);min-height:43px;padding:10px 18px;white-space:nowrap}
 .mobile-services-row{display:flex;align-items:center;border-bottom:1px solid rgba(36,46,61,.13)}
 .mobile-nav .mobile-services-row a{flex:1;border:0}
-.mobile-services-row button{font:inherit;font-size:25px;border:0;background:none;color:#303949;min-width:45px;min-height:45px;cursor:pointer}
-.mobile-services-list{padding:3px 10px 10px 20px;background:#e9e7df;border-radius:10px}
+.mobile-services-row button{font:inherit;font-size:25px;border:0;background:none;color:#434c7c;min-width:45px;min-height:45px;cursor:pointer}
+.mobile-services-list{padding:3px 10px 10px 20px;background:#e6e6e6;border-radius:10px}
 .mobile-nav .mobile-services-list a{padding:9px 0;font-size:14px}
 @media(max-width:1100px){.desktop-nav{gap:14px;font-size:13px}.services-dropdown{transform:translateX(-38%)}.header-side{gap:8px}}
 @media(max-width:960px){.desktop-nav{display:none}.services-dropdown{display:none}.mobile-nav:not([hidden]){display:block}}
 /* No-JS fallback: keep every route reachable without the menu scripts. */
-@media(max-width:960px){.no-js .menu-toggle{display:none}.no-js .mobile-nav[hidden]{display:block!important;position:static;padding:96px var(--gutter) 20px;background:#f7f6f2}.no-js .mobile-services-row button{display:none}.no-js .mobile-services-list[hidden]{display:block!important}}
+@media(max-width:960px){.no-js .menu-toggle{display:none}.no-js .mobile-nav[hidden]{display:block!important;position:static;padding:96px var(--gutter) 20px;background:#f6f6f6}.no-js .mobile-services-row button{display:none}.no-js .mobile-services-list[hidden]{display:block!important}}
 
 /* Match the Home header on every page: a flat translucent band, no inset card or shadow. */
 @media(min-width:961px){body.visari-mode.light-mode .header-inner{background:transparent;border-color:transparent;box-shadow:none;backdrop-filter:none}}
@@ -47,23 +47,23 @@ body.visari-mode .footer-brand::before{content:none;display:none}
    fades out before the right-hand photo and below the light header, and the copy turns white. */
 body.visari-mode.light-mode .v-hero-bg img{filter:brightness(1) saturate(.9) contrast(1.03)}
 body.visari-mode.light-mode .v-hero-shade{
-  background:linear-gradient(90deg,rgba(24,31,64,.9) 0%,rgba(24,31,64,.78) 30%,rgba(24,31,64,.34) 52%,rgba(24,31,64,0) 70%);
-  -webkit-mask-image:linear-gradient(180deg,transparent 0,transparent 96px,#000 260px);
-          mask-image:linear-gradient(180deg,transparent 0,transparent 96px,#000 260px)}
+  background:linear-gradient(90deg,rgba(34,45,101,.9) 0%,rgba(34,45,101,.78) 30%,rgba(34,45,101,.34) 52%,rgba(34,45,101,0) 70%);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,transparent 96px,#242e3d 260px);
+          mask-image:linear-gradient(180deg,transparent 0,transparent 96px,#242e3d 260px)}
 body.visari-mode.light-mode .v-hero::after{opacity:0}
-body.visari-mode.light-mode .v-hero-content .v-kicker{color:#e3cd8f}
-body.visari-mode.light-mode .v-hero-content h1 .hero-title-line{color:#fff;text-shadow:0 2px 22px rgba(10,14,35,.35)}
-body.visari-mode.light-mode .v-hero-content h1 .hero-title-line--accent{color:#e3cd8f}
+body.visari-mode.light-mode .v-hero-content .v-kicker{color:#dfc98e}
+body.visari-mode.light-mode .v-hero-content h1 .hero-title-line{color:#ffffff;text-shadow:0 2px 22px rgba(34,45,101,.35)}
+body.visari-mode.light-mode .v-hero-content h1 .hero-title-line--accent{color:#dfc98e}
 body.visari-mode.light-mode .v-hero-copy{color:rgba(255,255,255,.9)}
-body.visari-mode.light-mode .v-actions .v-btn:not(.v-btn-solid){color:#fff;border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.08)}
-body.visari-mode.light-mode .v-actions .v-btn:not(.v-btn-solid):hover{background:rgba(255,255,255,.2);border-color:#fff}
-body.visari-mode.light-mode .v-hero-foot,body.visari-mode.light-mode .v-hero-foot *{color:#5e6674}
+body.visari-mode.light-mode .v-actions .v-btn:not(.v-btn-solid){color:#ffffff;border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.08)}
+body.visari-mode.light-mode .v-actions .v-btn:not(.v-btn-solid):hover{background:rgba(255,255,255,.2);border-color:#ffffff}
+body.visari-mode.light-mode .v-hero-foot,body.visari-mode.light-mode .v-hero-foot *{color:#5b626e}
 
 /* Blend section boundaries on Home (no hard edges). */
 /* 1. Hero photo dissolves into the cream About section. */
-body.visari-mode.light-mode .v-hero-shade::after{content:"";position:absolute;left:0;right:0;bottom:0;height:200px;pointer-events:none;background:linear-gradient(180deg,rgba(247,246,241,0) 0%,rgba(247,246,241,.6) 55%,#f7f6f1 100%)}
+body.visari-mode.light-mode .v-hero-shade::after{content:"";position:absolute;left:0;right:0;bottom:0;height:200px;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.6) 55%,#f6f6f6 100%)}
 /* 2. About glow sits fully inside the section so overflow no longer slices it flat. */
 body.visari-mode.light-mode .v-about::after{bottom:10%;right:-6%;height:60%}
 /* 3. Neighbouring light sections share one tone; the founder section eases in from it. */
-.pin-section{background:#f7f6f1}
-body.visari-mode.light-mode .v-founder{background:linear-gradient(180deg,#f7f6f1 0,#ecebe5 200px)}
+.pin-section{background:#f6f6f6}
+body.visari-mode.light-mode .v-founder{background:linear-gradient(180deg,#f6f6f6 0,#eaeaea 200px)}
