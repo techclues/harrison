@@ -74,3 +74,13 @@ function hero_fallback(string $slug): array
     $n = crc32($slug);
     return [$photos[$n % 2], $crops[intdiv($n, 2) % count($crops)]];
 }
+
+/**
+ * URL for a static asset with a version stamp (the file's last-modified time), so browsers,
+ * phones especially, fetch a fresh copy whenever the file changes instead of reusing a stale one.
+ */
+function asset(string $path, string $basePath = ''): string
+{
+    $file = __DIR__ . '/../' . $path;
+    return $basePath . $path . (is_file($file) ? '?v=' . filemtime($file) : '');
+}

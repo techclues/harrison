@@ -294,9 +294,9 @@ test('particle H (Who We Are) and gold ribbon (Services) are progressive, lazy a
   const about = read('about.php'), services = read('services.php');
   assert.match(about, /data-h-particles="assets\/images\/h-mark\.json"/);
   assert.match(about, /about-hero-particles[^>]*>\s*<img/, 'the hero photo stays inside the stage as the fallback');
-  assert.match(about, /src="assets\/js\/h-particles\.js"/);
+  assert.match(about, /src="<\?= h\(asset\('assets\/js\/h-particles\.js'\)\) \?>"/);
   assert.match(services, /data-gold-ribbon data-gold-ribbon-above="\.page-hero-grid" data-gold-ribbon-below="\.service-hero-line"/);
-  assert.match(services, /src="assets\/js\/gold-ribbon\.js"/);
+  assert.match(services, /src="<\?= h\(asset\('assets\/js\/gold-ribbon\.js'\)\) \?>"/);
   for (const f of ['h-particles.js', 'gold-ribbon.js']) {
     const js = read('assets', 'js', f);
     assert.match(js, /prefers-reduced-motion/, `${f} must respect reduced motion`);
@@ -310,8 +310,8 @@ test('Home carries the ribbon band at the hero seam and the Who We Are particle 
   const home = read('index.php');
   assert.ok(home.indexOf('data-gold-ribbon="band"') < home.indexOf('class="v-about'), 'ribbon band sits before About');
   assert.ok(home.indexOf('class="about-hero-dark home-who"') < home.indexOf('class="v-faq'), 'Who We Are sits above the FAQ');
-  assert.match(home, /src="assets\/js\/gold-ribbon\.js"/);
-  assert.match(home, /src="assets\/js\/h-particles\.js"/);
+  assert.match(home, /src="<\?= h\(asset\('assets\/js\/gold-ribbon\.js'\)\) \?>"/);
+  assert.match(home, /src="<\?= h\(asset\('assets\/js\/h-particles\.js'\)\) \?>"/);
   assert.match(home, /<h2 id="home-who-heading">/, 'Home uses h2 so the page keeps a single h1');
 });
 
@@ -376,6 +376,24 @@ test('site-wide scroll animations are progressive: reduced-motion aware, fail op
   assert.ok(!/(^|\n)\.fx\{[^}]*opacity:0/.test(css), 'no unconditional .fx hiding rule');
   assert.match(css, /\.scroll-progress\{/);
   assert.match(css, /@media\(prefers-reduced-motion:reduce\)/);
+});
+
+test('the mobile menu is a fixed, scrollable overlay so it opens on screen wherever the page is scrolled', () => {
+  const css = read('assets', 'css', 'brand.css');
+  assert.match(css, /@media\(max-width:960px\)\{\s*body\.visari-mode \.mobile-nav:not\(\[hidden\]\)\{\s*position:fixed/, 'open mobile menu must be position:fixed');
+  assert.match(css, /max-height:100dvh;overflow-y:auto/, 'a long menu scrolls inside itself');
+  const js = read('assets', 'js', 'site.js');
+  assert.match(js, /menu-open/, 'the page behind is locked while the menu is open');
+});
+
+test('every stylesheet and script link carries a version stamp so phones never keep a stale copy', () => {
+  assert.match(read('includes', 'site.php'), /function asset\(string \$path/);
+  for (const f of ['includes/header.php', 'includes/footer.php']) {
+    const src = read(...f.split('/'));
+    assert.ok(!/<\?= h\(\$basePath\) \?>assets\/(css|js)\//.test(src), `${f} has an unversioned CSS/JS link`);
+    assert.match(src, /asset\('assets\/(css|js)\//, `${f} should use asset()`);
+  }
+  for (const f of mainPages) assert.ok(!/<script[^>]*src="assets\/js\//.test(read(f)), `${f} has an unversioned script`);
 });
 
 test('site stays noindex and light-only', () => {

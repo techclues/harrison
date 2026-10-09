@@ -117,3 +117,17 @@ body.visari-mode.light-mode .site-header::before{background:none}
 body.visari-mode.light-mode .desktop-nav a,body.visari-mode.light-mode .nav-dropdown-toggle{color:var(--brand-navy);text-shadow:0 0 12px rgba(255,255,255,.9),0 0 2px rgba(255,255,255,.7)}
 body.visari-mode.light-mode .desktop-nav>a,body.visari-mode.light-mode .nav-services>a{font-weight:var(--fw-body)!important}
 body.visari-mode .cta-card .cta-card-title{color:var(--brand-gold-light)!important}
+
+/* ===================================================================== */
+/* 7. Mobile menu — a fixed overlay, so it opens on screen wherever the page is scrolled to   */
+/* ===================================================================== */
+@media(max-width:960px){
+  body.visari-mode .mobile-nav:not([hidden]){
+    position:fixed;inset:0 0 auto 0;z-index:25;
+    max-height:100vh;max-height:100dvh;overflow-y:auto;overscroll-behavior:contain;
+    padding-top:96px!important;padding-bottom:32px;
+    background:var(--white);box-shadow:0 24px 60px rgba(34,45,101,.18);
+  }
+  /* the header (logo + close button) stays above the open menu */
+  body.visari-mode.menu-open .site-header{z-index:30;background:var(--white)!important}
+}

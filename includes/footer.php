@@ -18,12 +18,12 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js" defer></script>
 <script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js" defer></script>
-<script src="<?= h($basePath) ?>assets/js/site.js" defer></script>
-<script src="<?= h($basePath) ?>assets/js/animations.js" defer></script>
-<script src="<?= h($basePath) ?>assets/js/scroll-fx.js" defer></script>
-<script src="<?= h($basePath) ?>assets/js/typewriter.js" defer></script>
-<script src="<?= h($basePath) ?>assets/js/dot-field.js" defer></script>
-<script src="<?= h($basePath) ?>assets/js/pin-scroll.js" defer></script>
-<script src="<?= h($basePath) ?>assets/js/scroll-lines.js" defer></script>
+<script src="<?= h(asset('assets/js/site.js', $basePath)) ?>" defer></script>
+<script src="<?= h(asset('assets/js/animations.js', $basePath)) ?>" defer></script>
+<script src="<?= h(asset('assets/js/scroll-fx.js', $basePath)) ?>" defer></script>
+<script src="<?= h(asset('assets/js/typewriter.js', $basePath)) ?>" defer></script>
+<script src="<?= h(asset('assets/js/dot-field.js', $basePath)) ?>" defer></script>
+<script src="<?= h(asset('assets/js/pin-scroll.js', $basePath)) ?>" defer></script>
+<script src="<?= h(asset('assets/js/scroll-lines.js', $basePath)) ?>" defer></script>
 </body>
 </html>

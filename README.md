@@ -178,6 +178,19 @@ Carried over from the previous website and updated for UK GDPR (the old wording 
 
 
 
+## Deployment (GitHub Actions)
+
+`.github/workflows/deploy.yml` runs on every push to `main`: it lints the PHP and JavaScript, runs the brand-colour check and the tests, and only if all pass uploads the site over FTPS. It can also be run by hand from the Actions tab. Only changed files are uploaded, and nothing on the server is deleted.
+
+One-time setup:
+
+1. In the GitHub repository: Settings → Secrets and variables → Actions → add secrets `FTP_SERVER`, `FTP_USERNAME` and `FTP_PASSWORD` (HostGator: cPanel → FTP Accounts). Optionally add a *variable* `FTP_DIR` if the site is not in `public_html/`.
+2. Optional: Settings → Environments → `production` → add required reviewers, so each deploy needs an approval.
+3. On the server, once, create `config/mail.local.php` (see "Enquiry forms") so enquiries are emailed. It is never deployed or overwritten.
+4. If the host does not offer FTPS, change `protocol: ftps` to `ftp` in the workflow.
+
+Not uploaded: tests, tools, Markdown files, Git files, `storage/*` runtime data and `config/mail.local.php`.
+
 ## Checks
 
 

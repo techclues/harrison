@@ -21,15 +21,15 @@ $isAboutSub = $isAboutSub ?? false;
   <link rel="icon" type="image/png" sizes="192x192" href="<?= h($basePath) ?>assets/favicon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="<?= h($basePath) ?>assets/favicon-32.png">
   <link rel="apple-touch-icon" href="<?= h($basePath) ?>assets/apple-touch-icon.png">
-  <link rel="preload" href="<?= h($basePath) ?>assets/fonts/cinzel-700.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="<?= h(asset('assets/fonts/cinzel-700.ttf', $basePath)) ?>" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="<?= h($basePath) ?>assets/roboto-regular.woff2" as="font" type="font/woff2" crossorigin>
   <!-- three.js (pinned) for the optional 3D pieces; modules load only on pages that use them -->
   <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"}}</script>
-  <link rel="stylesheet" href="<?= h($basePath) ?>assets/css/tokens.css">
-  <link rel="stylesheet" href="<?= h($basePath) ?>assets/css/styles.css">
-  <link rel="stylesheet" href="<?= h($basePath) ?>assets/css/skeleton.css">
-  <link rel="stylesheet" href="<?= h($basePath) ?>assets/css/pages.css">
-  <link rel="stylesheet" href="<?= h($basePath) ?>assets/css/brand.css">
+  <link rel="stylesheet" href="<?= h(asset('assets/css/tokens.css', $basePath)) ?>">
+  <link rel="stylesheet" href="<?= h(asset('assets/css/styles.css', $basePath)) ?>">
+  <link rel="stylesheet" href="<?= h(asset('assets/css/skeleton.css', $basePath)) ?>">
+  <link rel="stylesheet" href="<?= h(asset('assets/css/pages.css', $basePath)) ?>">
+  <link rel="stylesheet" href="<?= h(asset('assets/css/brand.css', $basePath)) ?>">
 </head>
 <body id="top" class="visari-mode light-mode" data-contact-url="<?= h($basePath) ?>contact.php">
 <a class="skip-link" href="#main">Skip to content</a>
