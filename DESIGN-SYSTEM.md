@@ -102,6 +102,15 @@ Only the guide's five styles exist on the site. `brand.css` resets every element
 
 Restrained: reveals, gentle hover zoom (4–6%), pinned-list transitions. Everything works without JavaScript or the animation CDNs, and switches off under `prefers-reduced-motion`.
 
+**Site-wide scroll animation (`assets/js/scroll-fx.js`)** runs automatically on every page, with no per-page markup:
+
+- Headings, cards, article text, list items, form fields and footer columns fade up (14–32px) in a staggered cascade (90ms steps, capped at 450ms).
+- Photos reveal with a soft wipe and a 14% zoom-out, then drift up to ±24px against the scroll (parallax).
+- A 3px gold progress bar runs along the top of the window.
+- It animates only `opacity`, `translate`, `scale` and `clip-path`, so hover effects are untouched, and each element drops its animation classes when its entrance is done.
+- Fail-safes: nothing is hidden unless the script runs (a snippet in the page head pre-hides only the title area, and gives up after 3s). Anything scrolled past unseen is shown at once, a sweep reveals anything missed at the page edge, and reduced motion turns it all off.
+- Sections with their own motion are excluded: the pinned lists, the ribbon band, the Home hero, and the typewriter and blur-line headings.
+
 ## 6. Accessibility
 
 Text contrast ≥ 4.5:1 (small) / 3:1 (large). Visible focus on every control. Menus close on Escape. Collapsed content is `inert`. Decorative canvases and images are `aria-hidden` / empty `alt`.

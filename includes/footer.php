@@ -20,6 +20,7 @@
 <script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js" defer></script>
 <script src="<?= h($basePath) ?>assets/js/site.js" defer></script>
 <script src="<?= h($basePath) ?>assets/js/animations.js" defer></script>
+<script src="<?= h($basePath) ?>assets/js/scroll-fx.js" defer></script>
 <script src="<?= h($basePath) ?>assets/js/typewriter.js" defer></script>
 <script src="<?= h($basePath) ?>assets/js/dot-field.js" defer></script>
 <script src="<?= h($basePath) ?>assets/js/pin-scroll.js" defer></script>

@@ -14,6 +14,7 @@ $isAboutSub = $isAboutSub ?? false;
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?= h($pageTitle) ?> | Harrison Accountants</title>
+  <script>(function(){var d=document.documentElement;if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)return;d.classList.add("fx-js");setTimeout(function(){d.classList.remove("fx-js")},3000)})()</script>
   <meta name="description" content="<?= h($pageDescription) ?>">
   <meta name="robots" content="noindex,nofollow">
   <meta name="theme-color" content="#ffffff">
@@ -74,7 +75,7 @@ $isAboutSub = $isAboutSub ?? false;
       <a href="<?= h($basePath) ?>news.php"<?= $currentNav === 'news' ? ' aria-current="page"' : '' ?>>News</a>
       <a href="<?= h($basePath) ?>contact.php"<?= $currentNav === 'contact' ? ' aria-current="page"' : '' ?>>Contact</a>
     </nav>
-    <div class="header-side"><a class="btn header-cta" href="<?= h($basePath) ?>appointment.php"<?= $currentNav === 'appointment' ? ' aria-current="page"' : '' ?>>Book an appointment</a></div>
+    <div class="header-side"><a class="btn header-cta" href="<?= h($basePath) ?>contact.php">Let’s talk</a></div>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-navigation" aria-label="Open navigation" data-mobile-toggle><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
   </div>
 </header>
@@ -100,6 +101,6 @@ $isAboutSub = $isAboutSub ?? false;
   </div>
   <a href="<?= h($basePath) ?>news.php"<?= $currentNav === 'news' ? ' aria-current="page"' : '' ?>>News</a>
   <a href="<?= h($basePath) ?>contact.php"<?= $currentNav === 'contact' ? ' aria-current="page"' : '' ?>>Contact</a>
-  <a class="btn btn-gold mobile-cta" href="<?= h($basePath) ?>appointment.php">Book an appointment</a>
+  <a class="btn btn-gold mobile-cta" href="<?= h($basePath) ?>contact.php">Let’s talk</a>
 </nav>
 <main id="main">

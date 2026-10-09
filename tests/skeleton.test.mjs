@@ -104,9 +104,9 @@ test('audience data has the ten audiences, each with page content, linking only 
   }
 });
 
-test('navigation matches the previous site: Home, Services mega-menu, About menu, News, Contact, Book an appointment', () => {
+test('navigation matches the previous site: Home, Services mega-menu, About menu, News, Contact and a Let’s talk button', () => {
   const header = read('includes', 'header.php');
-  for (const name of ['Home', 'Services', 'About', 'News', 'Contact', 'Book an appointment']) {
+  for (const name of ['Home', 'Services', 'About', 'News', 'Contact', 'Let’s talk']) {
     assert.ok(header.includes(`>${name}</a>`), `Missing menu item: ${name}`);
   }
   for (const title of ['Who We Help', 'What We Provide']) assert.ok(header.includes(`>${title}</a></p>`), `Mega-menu column missing: ${title}`);
@@ -354,6 +354,28 @@ test('form states: red required marks and errors, green Sent button, status colo
   assert.match(js, /showFieldError/);
   assert.match(read('includes', 'form-fields.php'), /<span class="req" aria-hidden="true">\*<\/span>/, 'the consent tick box is marked required');
   assert.match(read('DESIGN-SYSTEM.md'), /Status colours/i, 'the red/green exception is documented');
+});
+
+test('service pages have no "Talk to us" card in the sidebar (Who We Help pages keep it)', () => {
+  const tpl = read('includes', 'detail-page.php');
+  assert.match(tpl, /<\?php if \(!\$isService\): \?>\s*<div class="aside-card aside-contact">/, 'the card is shown for audience pages only');
+});
+
+test('site-wide scroll animations are progressive: reduced-motion aware, fail open, no hidden content without the script', () => {
+  const js = read('assets', 'js', 'scroll-fx.js');
+  assert.match(js, /prefers-reduced-motion: reduce/, 'respects reduced motion');
+  assert.match(js, /IntersectionObserver/);
+  assert.match(js, /const sweep = /, 'a safety sweep reveals anything missed');
+  assert.match(js, /scrolled past without being seen/, 'skipped elements are shown, not left hidden');
+  assert.ok(!/gsap|ScrollTrigger/.test(js), 'does not depend on the animation CDNs');
+  assert.match(read('includes', 'footer.php'), /assets\/js\/scroll-fx\.js/);
+  const header = read('includes', 'header.php');
+  assert.match(header, /classList\.add\("fx-js"\)[\s\S]*setTimeout\(function\(\)\{d\.classList\.remove\("fx-js"\)\},3000\)/, 'the head pre-hide fails open after 3s');
+  const css = read('assets', 'css', 'pages.css');
+  assert.match(css, /\.fx-ready \.fx\{opacity:0/, 'items are only hidden once the script is running');
+  assert.ok(!/(^|\n)\.fx\{[^}]*opacity:0/.test(css), 'no unconditional .fx hiding rule');
+  assert.match(css, /\.scroll-progress\{/);
+  assert.match(css, /@media\(prefers-reduced-motion:reduce\)/);
 });
 
 test('site stays noindex and light-only', () => {

@@ -74,12 +74,14 @@ require __DIR__ . '/header.php';
 <?php endforeach; ?>
         </ul>
       </nav>
+<?php if (!$isService): ?>
       <div class="aside-card aside-contact">
         <p class="aside-title">Talk to us</p>
         <p>Call us or book a time that suits you.</p>
         <a class="aside-phone" href="tel:<?= h(CONTACT['phone_href']) ?>"><?= h(CONTACT['phone']) ?></a>
         <a class="btn btn-gold" href="<?= h($basePath) ?>appointment.php">Book an appointment</a>
       </div>
+<?php endif; ?>
     </aside>
   </div>
 </section>
