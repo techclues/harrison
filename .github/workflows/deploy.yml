@@ -1,59 +1,75 @@
-deploy:
-  name: Deploy to IONOS
-  needs: test
-  runs-on: ubuntu-latest
-  timeout-minutes: 15
-  environment: production
+name: Test and deploy
 
-  steps:
-    - uses: actions/checkout@v4
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
-    - name: Install SFTP client
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y lftp
+permissions:
+  contents: read
 
-    - name: Configure SSH host key
-      env:
-        SFTP_HOST: ${{ secrets.SFTP_HOST }}
-        SFTP_PORT: ${{ secrets.SFTP_PORT }}
-      run: |
-        mkdir -p ~/.ssh
-        chmod 700 ~/.ssh
-        ssh-keyscan -T 20 -p "$SFTP_PORT" "$SFTP_HOST" > ~/.ssh/known_hosts
-        test -s ~/.ssh/known_hosts
-        chmod 600 ~/.ssh/known_hosts
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test PHP syntax
+        run: |
+          find . -name '*.php' \
+            -not -path './includes/vendor/*' \
+            -print0 | xargs -0 -r -n1 php -l
 
-    - name: Deploy website
-      env:
-        HOST: ${{ secrets.SFTP_HOST }}
-        PORT: ${{ secrets.SFTP_PORT }}
-        USERNAME: ${{ secrets.SFTP_USER }}
-        PASSWORD: ${{ secrets.SFTP_PASSWORD }}
-        REMOTE_DIR: ${{ secrets.SFTP_REMOTE_DIR }}
-      run: |
-        set -euo pipefail
+  deploy:
+    name: Deploy to IONOS
+    needs: test
+    runs-on: ubuntu-latest
+    environment: production
 
-        test "$REMOTE_DIR" = "/harrison/"
+    steps:
+      - uses: actions/checkout@v4
 
-        lftp -u "$USERNAME","$PASSWORD" \
-          -p "$PORT" "sftp://$HOST" <<EOF
-        set cmd:fail-exit yes
-        set sftp:auto-confirm no
-        set net:max-retries 2
-        set net:timeout 30
+      - name: Install SFTP client
+        run: sudo apt-get update && sudo apt-get install -y lftp
 
-        mirror --reverse --verbose \
-          --exclude-glob .git/ \
-          --exclude-glob .github/ \
-          --exclude-glob tests/ \
-          --exclude-glob tools/ \
-          --exclude-glob node_modules/ \
-          --exclude-glob .env \
-          --exclude-glob .env.* \
-          --exclude-glob mail.local.php \
-          --exclude-glob '*.md' \
-          ./ "$REMOTE_DIR"
+      - name: Configure SSH host key
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan -T 20 -p 22 "$SFTP_HOST" > ~/.ssh/known_hosts
+          test -s ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
 
-        bye
-        EOF
+      - name: Deploy website
+        env:
+          HOST: ${{ secrets.SFTP_HOST }}
+          PORT: ${{ secrets.SFTP_PORT }}
+          USERNAME: ${{ secrets.SFTP_USER }}
+          PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          REMOTE_DIR: ${{ secrets.SFTP_REMOTE_DIR }}
+        run: |
+          set -euo pipefail
+          test "$REMOTE_DIR" = "/harrison/"
+
+          lftp -u "$USERNAME","$PASSWORD" \
+            -p "$PORT" "sftp://$HOST" <<EOF
+          set cmd:fail-exit yes
+          set sftp:auto-confirm no
+          set net:max-retries 2
+          set net:timeout 30
+
+          mirror --reverse --verbose \
+            --exclude-glob .git/ \
+            --exclude-glob .github/ \
+            --exclude-glob tests/ \
+            --exclude-glob tools/ \
+            --exclude-glob node_modules/ \
+            --exclude-glob .env \
+            --exclude-glob .env.* \
+            --exclude-glob mail.local.php \
+            --exclude-glob '*.md' \
+            ./ "$REMOTE_DIR"
+
+          bye
+          EOF
