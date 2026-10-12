@@ -78,8 +78,8 @@ if (stage) {
     }
 
     // ---- Scene ---------------------------------------------------------------------------
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    const renderer = new THREE.WebGLRenderer({ antialias: !window.matchMedia('(pointer: coarse)').matches, alpha: true, powerPreference: 'low-power' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.matchMedia('(pointer: coarse)').matches ? 1.5 : 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.domElement.className = 'h-particles-canvas';
     renderer.domElement.setAttribute('aria-hidden', 'true');

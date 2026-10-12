@@ -24,8 +24,8 @@ if (stage) {
       fetch(stage.dataset.hMark).then(r => r.json()),
     ]);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    const renderer = new THREE.WebGLRenderer({ antialias: !window.matchMedia('(pointer: coarse)').matches, alpha: true, powerPreference: 'low-power' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.matchMedia('(pointer: coarse)').matches ? 1.5 : 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.NeutralToneMapping; // keeps the brand navy/gold close to their true values
     renderer.toneMappingExposure = 1;

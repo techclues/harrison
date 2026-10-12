@@ -306,8 +306,7 @@ body.visari-mode.light-mode .v-cta:has(.v-cta-mark) .v-cta-overlay{background:li
 /* Home: gold ribbon band across the seam between the hero and About (gold-ribbon.js, band mode) */
 .ribbon-band{position:relative;z-index:3;height:150px;margin:-75px 0;pointer-events:none} /* straddles the seam, no background of its own */
 /* Breathing room around the ribbon: the hero's bottom labels lift, and About's top content drops */
-body.visari-mode .v-hero:has(+ .ribbon-band) .v-hero-foot{bottom:104px!important}
-body.visari-mode .v-hero:has(+ .ribbon-band) .v-hero-content{padding-bottom:230px!important}
+body.visari-mode .v-hero:has(+ .ribbon-band) .v-hero-content{padding-bottom:170px!important}
 body.visari-mode .ribbon-band + .v-about{padding-top:clamp(150px,14vw,200px)!important}
 body.visari-mode .ribbon-band + .v-about::before{top:104px!important}
 .ribbon-band .gold-ribbon-canvas{display:block;width:100%!important;height:100%!important}
@@ -450,3 +449,141 @@ body.visari-mode .manifesto-grid h2{margin-bottom:18px}
 .fx-par img{height:calc(100% + 56px);margin-block:-28px;translate:0 var(--py,0px)}
 /* thin gold reading-progress bar along the top of the viewport */
 .scroll-progress{position:fixed;z-index:60;top:0;left:0;right:0;height:3px;pointer-events:none;background:linear-gradient(90deg,var(--brand-gold),var(--brand-gold-light));transform-origin:left center;transform:scaleX(var(--p,0))}
+
+/* ============================ Mobile & touch ============================ */
+
+/* Touch screens have no hover: stop hover zooms and lifts from sticking after a tap */
+@media(hover:none){
+  .related-card:hover,.v-serve-grid article:hover,.btn:hover,.v-btn:hover,.cta-card:hover{transform:none!important}
+  :is(.hero-art,.who-photo,.manifesto-figure,.post-card,.post-feature) :is(img):hover,
+  .hero-art:hover img,.who-photo:hover img,.manifesto-figure:hover img,.post-card:hover .post-card-art img,
+  .post-feature:hover .post-feature-art img,.v-about .v-split-image:hover img{transform:none!important}
+  .v-about .v-split-image:hover::before{transform:none!important}
+}
+
+/* Lighter scroll animation on phones and touch: short travel, quick, plain fades for photos */
+.fx-small.fx-ready .fx{translate:0 18px;transition:opacity .6s var(--ease) var(--fx-d,0ms),translate .7s var(--ease) var(--fx-d,0ms)}
+.fx-small.fx-ready .fx.fx-sm{translate:0 10px}
+.fx-small.fx-ready .fx.is-in{translate:0 0}
+.fx-small.fx-ready .fx-mask{opacity:0;translate:0 14px;clip-path:none;transition:opacity .7s var(--ease) var(--fx-d,0ms),translate .8s var(--ease) var(--fx-d,0ms)}
+.fx-small.fx-ready .fx-mask.is-in{opacity:1;translate:0 0}
+.fx-small.fx-ready .fx-mask img{scale:1;transition:none}
+.fx-small .fx-par img{height:100%;margin-block:0;translate:none}
+
+@media(max-width:760px){
+  /* shorter, lighter blur effects */
+  .v-about.scroll-lines-ready .v-copy h2 .reveal-line{filter:blur(5px)}
+  /* title photo no longer pushes the page content a full screen down */
+  .hero-art{aspect-ratio:2/1;border-radius:var(--radius-card) var(--radius-card) 40px var(--radius-card)}
+  .who-photo,.manifesto-figure{aspect-ratio:16/10}
+  .detail-hero{padding-block:104px 32px!important}
+  .page-section{padding-block:40px}
+  .pin-section{padding-block:48px}
+  .cta-band{padding-block:56px}
+  .post-feature-art{min-height:200px}
+  .audience-card,.related-card,.review-card,.post-card{padding:22px}
+  .post-card{padding-top:0}
+  .principle-card{padding:22px}
+  .check-list li{padding-bottom:12px}
+  .dot-field{opacity:.6}
+}
+
+@media(max-width:680px){
+  /* Home "Who we serve": a swipe row instead of four stacked cards (about 2,000px shorter) */
+  .v-serve-grid{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:24px;
+    margin-inline:-24px;padding:4px 24px 18px;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:none}
+  .v-serve-grid::-webkit-scrollbar{display:none}
+  .v-serve-grid>article{flex:0 0 78%;scroll-snap-align:center}
+  .v-serve-grid::after{content:"";flex:0 0 1px}
+  .v-serve .v-section-intro{margin-bottom:28px}
+  .v-serve{padding-block:72px!important}
+
+  /* Footer: brand block on top, the link lists in two columns */
+  .footer-top.footer-top--wide{gap:28px}
+  .footer-top--wide .footer-links,.footer-top--wide .footer-links-services{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px}
+  .footer-top--wide .footer-links a{padding-block:9px}
+  .footer-brand img{height:84px!important}
+}
+
+/* Comfortable tap targets (at least 44px) on touch screens */
+@media(pointer:coarse){
+  .menu-toggle{min-width:48px;min-height:48px}
+  .v-text-link,.pin-all,.audience-more,.link-dark,.aside-phone,.pin-body a,.footer-contact a,.contact-details a,
+  .audience-links a,.crumbs a,.footer-links a,.footer-bottom a,.mobile-nav a,.v-serve-grid a{display:inline-flex;align-items:center;min-height:44px}
+  summary{min-height:44px}
+  .audience-links{gap:0 18px}
+  .footer-links a{min-height:42px}
+  .crumbs a{min-height:36px}
+  .consent{min-height:44px;align-items:center}
+  .consent input{width:24px;height:24px;margin-top:0}
+  .field :is(input,select,textarea){min-height:48px}
+  .post-more summary{min-height:48px}
+  .pin-title{min-height:48px}
+  .nav-dropdown-toggle{min-width:44px;min-height:44px}
+}
+@media(pointer:coarse){.audience-card h3 a{display:inline-block;padding-block:8px}}
+
+/* Small screens: the About / Services title grids are a single column that can shrink (no 300px minimum) */
+@media(max-width:960px){
+  body.visari-mode :is(.about-hero-grid,.page-hero-grid){grid-template-columns:minmax(0,1fr)!important;gap:32px!important}
+  body.visari-mode :is(.about-hero-grid,.page-hero-grid)>*{min-width:0}
+}
+
+
+/* ===== Home hero: the background is three full-width photos you can scroll sideways (assets/js/hero-slider.js) ===== */
+.hero-slider{overflow:hidden}
+.hero-slider-track{display:flex;width:100%;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;cursor:grab;touch-action:pan-y pinch-zoom}
+.hero-slider-track::-webkit-scrollbar{display:none}
+.hero-slider-track:focus-visible{outline:3px solid var(--brand-gold-light);outline-offset:-6px}
+.hero-slider-track.is-dragging{scroll-snap-type:none;cursor:grabbing;scroll-behavior:auto}
+.hero-bg-slide{flex:0 0 100%;height:100%;margin:0;overflow:hidden;scroll-snap-align:start}
+.hero-bg-slide img{display:block;width:100%;height:100%;object-fit:cover;user-select:none;-webkit-user-drag:none}
+/* the overlays and the copy let sideways swipes and drags through to the photos beneath */
+.v-hero-shade,.v-hero-grid,.v-hero-signal{pointer-events:none}
+.v-hero-content{pointer-events:none}
+.v-hero-content :is(a,button,.v-actions){pointer-events:auto}
+.hero-slider-ctrl{position:absolute;z-index:4;inset:0;pointer-events:none}
+.hero-slider-ctrl[hidden]{display:none}
+.hero-slider-ctrl>*{pointer-events:auto}
+/* arrows on the left and right sides of the hero, dots centred at the bottom */
+.hero-slider-ctrl [data-hs]{position:absolute;top:50%;translate:0 -50%}
+.hero-slider-ctrl [data-hs="prev"]{left:clamp(14px,2.4vw,40px)}
+.hero-slider-ctrl [data-hs="next"]{right:clamp(14px,2.4vw,40px)}
+.hero-slider-ctrl .hg-dots{position:absolute;left:50%;bottom:150px;translate:-50% 0}
+.hg-btn{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.65);background:rgba(34,45,101,.4);color:var(--white);cursor:pointer;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:background .25s ease,opacity .25s ease,transform .25s ease}
+.hg-btn:hover{background:rgba(34,45,101,.7)}
+.hg-btn:active{transform:scale(.94)}
+.hg-btn:focus-visible{outline:2px solid var(--brand-gold-light);outline-offset:3px}
+/* dots instead of a counter: the active one stretches into a gold pill */
+.hg-dots{display:flex;align-items:center}
+.hg-dot{position:relative;width:26px;height:44px;padding:0;border:0;background:none;cursor:pointer}
+.hg-dot::before{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;translate:-50% -50%;border-radius:999px;background:rgba(255,255,255,.7);box-shadow:0 1px 8px rgba(34,45,101,.55);transition:width .4s var(--ease),background .3s ease}
+.hg-dot[aria-current="true"]::before{width:26px;background:var(--brand-gold-light)}
+.hg-dot:focus-visible{outline:2px solid var(--brand-gold-light);outline-offset:-4px;border-radius:8px}
+@media(max-width:1100px){
+  .hero-slider-ctrl [data-hs]{top:auto;bottom:128px;translate:none}
+  .hero-slider-ctrl .hg-dots{bottom:128px}
+}
+@media(max-width:680px){
+  .hero-slider-ctrl [data-hs]{bottom:112px}
+  .hero-slider-ctrl .hg-dots{bottom:112px}
+}
+
+/* ===== Button hover: a glowing outline draws itself around the button ===== */
+@property --edge{syntax:"<angle>";inherits:false;initial-value:0deg}
+.btn,.v-btn{position:relative;--ring:var(--brand-navy)}
+/* on dark surfaces the line is light gold */
+.v-hero :is(.btn,.v-btn),.cta-band .btn,.cta-card .btn,.site-footer .btn,.hero-slider-ctrl .btn{--ring:var(--brand-gold-light)}
+.btn::after,.v-btn::after{
+  content:"";position:absolute;inset:-6px;padding:2px;border-radius:var(--ring-r,inherit);pointer-events:none;opacity:0;
+  background:conic-gradient(from calc(var(--edge) * -.5),var(--ring) 0,var(--ring) var(--edge),transparent var(--edge));
+  -webkit-mask:linear-gradient(black 0 0) content-box,linear-gradient(black 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(black 0 0) content-box exclude,linear-gradient(black 0 0);
+  filter:drop-shadow(0 0 4px var(--ring)) drop-shadow(0 0 11px color-mix(in srgb,var(--ring) 60%,transparent));
+  transition:opacity .25s ease}
+@keyframes ring-draw{from{--edge:0deg}to{--edge:360deg}}
+@media(hover:hover){.btn:hover::after,.v-btn:hover::after{opacity:1;animation:ring-draw .85s cubic-bezier(.4,0,.2,1) forwards}}
+.btn:focus-visible::after,.v-btn:focus-visible::after{opacity:1;animation:ring-draw .85s cubic-bezier(.4,0,.2,1) forwards}
+@media(prefers-reduced-motion:reduce){
+  .btn::after,.v-btn::after{animation:none!important;--edge:360deg}
+}

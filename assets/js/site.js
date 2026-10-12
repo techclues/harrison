@@ -89,6 +89,19 @@
     else dropdowns.forEach(d => close(d));
   });
 
+  // Button hover outline: match the ring's corners to each button's own (pill, or rounded rectangle).
+  const OUTSET = 6;
+  const sizeRings = () => document.querySelectorAll('.btn, .v-btn').forEach(button => {
+    const box = button.getBoundingClientRect();
+    if (!box.width) return;
+    const radius = parseFloat(getComputedStyle(button).borderTopLeftRadius) || 0;
+    button.style.setProperty('--ring-r', `${Math.min(radius, box.height / 2) + OUTSET}px`);
+  });
+  sizeRings();
+  window.addEventListener('load', sizeRings);
+  let ringTimer = 0;
+  window.addEventListener('resize', () => { window.clearTimeout(ringTimer); ringTimer = window.setTimeout(sizeRings, 150); }, { passive: true });
+
   const onScroll = () => header?.classList.toggle('scrolled', window.scrollY > 12);
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });

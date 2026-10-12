@@ -22,8 +22,8 @@ if (stages.length) {
     const above = isBand ? null : hero.querySelector(stage.dataset.goldRibbonAbove);
     const below = isBand ? null : hero.querySelector(stage.dataset.goldRibbonBelow);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    const renderer = new THREE.WebGLRenderer({ antialias: !window.matchMedia('(pointer: coarse)').matches, alpha: true, powerPreference: 'low-power' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.matchMedia('(pointer: coarse)').matches ? 1.5 : 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.NeutralToneMapping;
     renderer.domElement.className = 'gold-ribbon-canvas';
@@ -37,7 +37,7 @@ if (stages.length) {
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, -2000, 2000);
 
     // Ribbon geometry built column by column, so drawRange can unroll it left to right.
-    const COLS = 240, ROWS = 7;
+    const COLS = window.matchMedia('(max-width: 760px)').matches ? 130 : 240, ROWS = 7;   // fewer segments on phones
     const makeRibbon = material => {
       const geo = new THREE.BufferGeometry();
       geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(COLS * ROWS * 3), 3).setUsage(THREE.DynamicDrawUsage));

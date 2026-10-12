@@ -13,6 +13,11 @@
     return;
   }
 
+  // Phones and touch screens get a lighter version: shorter travel, a quicker cascade, plain fades
+  // for photos (no wipe or zoom) and no parallax.
+  const small = window.matchMedia('(max-width: 760px), (pointer: coarse)').matches;
+  if (small) root.classList.add('fx-small');
+
   // Parts of the site that already have their own motion are left alone.
   const SKIP = '.pin-section, .ribbon-band, .v-hero, .v-industries, .v-typewriter-heading, [data-scroll-lines], .visually-hidden, details:not([open]) *, .hp';
 
@@ -37,8 +42,12 @@
   const PARALLAX = ['.hero-art', '.manifesto-figure', '.who-photo'];
 
   const tagged = [];
+  // The Home "Who we serve" cards are a horizontal swipe row on phones, so they must not wait to
+  // scroll into view vertically.
+  const CAROUSEL = '.v-serve-grid > article';
   const tag = (selectors, classes) => {
     document.querySelectorAll(selectors.join(',')).forEach(el => {
+      if (small && window.matchMedia('(max-width: 680px)').matches && el.matches(CAROUSEL)) return;
       if (el.dataset.fx || el.matches(SKIP) || el.closest(SKIP)) return;
       el.dataset.fx = '1';
       el.classList.add('fx', ...classes);
@@ -60,7 +69,7 @@
   const reveal = (el, n) => {
     if (!pending.delete(el)) return;
     io.unobserve(el);
-    const delay = Math.min(n * 90, 450);
+    const delay = small ? Math.min(n * 60, 240) : Math.min(n * 90, 450);
     el.style.setProperty('--fx-d', `${delay}ms`);
     requestAnimationFrame(() => el.classList.add('is-in'));
     clear(el, 1700 + delay);
@@ -103,7 +112,7 @@
 
   // ---- Parallax (photos drift a little against the scroll) --------------------------------------
   const drifters = [];
-  PARALLAX.forEach(sel => document.querySelectorAll(sel).forEach(el => {
+  if (!small) PARALLAX.forEach(sel => document.querySelectorAll(sel).forEach(el => {
     if (el.closest(SKIP) || !el.querySelector('img') || drifters.some(d => d.el === el)) return;
     el.classList.add('fx-par');
     drifters.push({ el, visible: false });

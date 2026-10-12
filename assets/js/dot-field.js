@@ -6,7 +6,9 @@
   if (!canvases.length) return;
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const SPACING = 30;        // px between dots
+  const touchOnly = window.matchMedia('(hover: none)').matches;   // a finger cannot hover: keep the grid static
+  const phone = window.matchMedia('(max-width: 680px)').matches;
+  const SPACING = phone ? 36 : 30;        // px between dots
   const RADIUS = 150;        // cursor influence radius
   const PUSH = 11;           // repel strength
   const SPRING = 0.065;      // pull back to home position
@@ -30,7 +32,7 @@
 
     const build = () => {
       const rect = host.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, phone ? 1.5 : 2);
       w = Math.max(1, Math.round(rect.width));
       h = Math.max(1, Math.round(rect.height));
       canvas.width = w * dpr;
@@ -103,7 +105,7 @@
     const wake = () => { if (!raf && visible) raf = requestAnimationFrame(step); };
 
     build();
-    if (reduced) { new ResizeObserver(build).observe(host); return; }
+    if (reduced || touchOnly) { new ResizeObserver(build).observe(host); return; }
 
     new ResizeObserver(build).observe(host);
     new IntersectionObserver(entries => {

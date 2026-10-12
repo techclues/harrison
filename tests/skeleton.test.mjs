@@ -396,6 +396,82 @@ test('every stylesheet and script link carries a version stamp so phones never k
   for (const f of mainPages) assert.ok(!/<script[^>]*src="assets\/js\//.test(read(f)), `${f} has an unversioned script`);
 });
 
+test('mobile and touch: lighter animation, no sticky hovers, 44px tap targets, cheaper 3D and canvas', () => {
+  const fx = read('assets', 'js', 'scroll-fx.js');
+  assert.match(fx, /\(max-width: 760px\), \(pointer: coarse\)/);
+  assert.match(fx, /fx-small/);
+  assert.match(fx, /if \(!small\) PARALLAX\.forEach/, 'no parallax on phones');
+  const css = read('assets', 'css', 'pages.css');
+  assert.match(css, /\.fx-small\.fx-ready \.fx-mask\{[^}]*clip-path:none/, 'photos fade instead of wiping on phones');
+  assert.match(css, /@media\(hover:none\)\{[\s\S]*:hover[\s\S]*transform:none!important/, 'hover zoom/lift is disabled on touch');
+  assert.match(css, /@media\(pointer:coarse\)\{[\s\S]*min-height:44px/, 'touch targets are at least 44px');
+  assert.match(css, /\.v-serve-grid\{display:flex;[^}]*scroll-snap-type:x mandatory/, 'Who we serve is a swipe row on phones');
+  assert.match(read('assets', 'js', 'dot-field.js'), /touchOnly/, 'dot grids stay static on touch screens');
+  for (const f of ['h-mark-3d.js', 'h-particles.js', 'gold-ribbon.js']) {
+    const js = read('assets', 'js', f);
+    assert.match(js, /pointer: coarse\)'\)\.matches \? 1\.5 : 2/, `${f} caps resolution on touch devices`);
+    assert.match(js, /antialias: !window\.matchMedia\('\(pointer: coarse\)'\)\.matches/, `${f} skips antialiasing on touch devices`);
+  }
+  assert.match(read('assets', 'css', 'brand.css'), /@media\(max-width:360px\)\{[\s\S]*h1\{font-size:min\(var\(--fs-h1\),9\.4vw\)/, 'H1 only shrinks on very small phones');
+});
+
+test('Home hero: background is three scrollable photos; the insight card and tagline text are gone', () => {
+  const home = read('index.php');
+  const hero = home.slice(home.indexOf('<section class="v-hero"'), home.indexOf('</section>', home.indexOf('<section class="v-hero"')));
+  const slides = JSON.parse(spawnSync('php', ['-r', "echo json_encode(require 'data/hero.php');"], { cwd: root, encoding: 'utf8' }).stdout);
+  assert.ok(slides.length >= 3, 'at least three background photos');
+  for (const sl of slides) assert.ok(existsSync(join(root, 'assets', sl.src)) && sl.alt.length > 10, `hero photo ${sl.src} must exist and have alt text`);
+  assert.match(hero, /foreach \(\$heroSlides as \$i => \$slide\)[\s\S]*class="hero-bg-slide"/, 'slides come from data/hero.php');
+  assert.match(hero, /data-hero-slider[\s\S]*hero-slider-track[^>]*tabindex="0"/, 'the track is keyboard focusable');
+  assert.match(hero, /data-hs="prev"[\s\S]*data-hs="next"/, 'previous and next buttons');
+  for (const gone of ['Structure before speed', 'Clarity / Context / Control', 'Scroll to explore', 'v-hero-insight', 'v-hero-foot']) {
+    assert.ok(!hero.includes(gone) && !home.includes(gone), `${gone} must be removed`);
+  }
+  const css = read('assets', 'css', 'pages.css');
+  assert.match(css, /\.hero-slider-track\{[^}]*overflow-x:auto;scroll-snap-type:x mandatory/);
+  assert.match(css, /\.v-hero-content\{pointer-events:none\}/, 'swipes and drags reach the photos beneath the copy');
+  const js = read('assets', 'js', 'hero-slider.js');
+  assert.match(js, /prefers-reduced-motion/);
+  assert.match(js, /ArrowRight/);
+  assert.match(read('index.php'), /asset\('assets\/js\/hero-slider\.js'\)/, 'the script is version-stamped');
+  // the photos change by themselves, loop, and can be stopped; no "1 / 3" counter
+  assert.match(js, /const DELAY = reduced \? 8000 : 6500/, 'a photo every 6.5 seconds (8 under reduced motion)');
+  assert.match(js, /cloneNode\(true\)/, 'a copy of the first photo makes the loop seamless');
+  for (const reason of ['hoveringControls', 'focusInside', 'visibilitychange', 'IntersectionObserver']) assert.ok(js.includes(reason), `autoplay pauses for ${reason}`);
+  assert.match(hero, /class="hg-dot" data-hs-dot=/, 'a dot for each photo');
+  assert.ok(!/data-hs="toggle"|hg-pause/.test(hero + css), 'the pause button is removed');
+  assert.match(css, /\.hero-slider-ctrl \[data-hs="prev"\]\{left:/, 'previous arrow on the left side');
+  assert.match(css, /\.hero-slider-ctrl \[data-hs="next"\]\{right:/, 'next arrow on the right side');
+  assert.match(css, /\.hero-slider-ctrl \.hg-dots\{position:absolute;left:50%/, 'dots centred at the bottom');
+  assert.ok(!/class="hero-slider-ctrl wrap"/.test(hero), 'the controls span the whole hero, not the centred content width');
+  assert.ok(!/hg-count|data-hs-now/.test(hero + css), 'no numeric counter');
+});
+
+test('button hover draws a glowing outline around the button, with reduced-motion and touch fallbacks', () => {
+  const css = read('assets', 'css', 'pages.css');
+  assert.match(css, /@property --edge\{syntax:"<angle>"/);
+  assert.match(css, /\.btn::after,\.v-btn::after\{[\s\S]*conic-gradient[\s\S]*mask-composite|-webkit-mask-composite/, 'ring is a masked conic gradient');
+  assert.match(css, /@keyframes ring-draw\{from\{--edge:0deg\}to\{--edge:360deg\}\}/);
+  assert.match(css, /@media\(hover:hover\)\{\.btn:hover::after/, 'hover ring only on hover-capable devices');
+  assert.match(css, /\.btn:focus-visible::after/, 'keyboard focus gets the ring too');
+  assert.match(css, /@media\(prefers-reduced-motion:reduce\)\{\s*\.btn::after,\.v-btn::after\{animation:none!important;--edge:360deg/, 'reduced motion: instant ring');
+  assert.match(css, /\.v-hero :is\(\.btn,\.v-btn\),\.cta-band \.btn[\s\S]*--ring:var\(--brand-gold-light\)/, 'light ring on dark surfaces');
+  assert.ok(!/linear-gradient\(#000/.test(css), 'no raw black hex in the ring mask');
+});
+
+test('button outline corners follow each button’s own radius', () => {
+  const js = read('assets', 'js', 'site.js');
+  assert.match(js, /borderTopLeftRadius/, 'the script reads the real corner radius');
+  assert.match(js, /--ring-r/);
+  assert.match(read('assets', 'css', 'pages.css'), /border-radius:var\(--ring-r,inherit\)/);
+});
+
+test('reduced motion: the hero photos still change by themselves, as instant cuts', () => {
+  const js = read('assets', 'js', 'hero-slider.js');
+  assert.match(js, /const smooth = reduced \? 'auto' : 'smooth'/, 'no sliding under reduced motion');
+  assert.ok(!/userPaused|toggle/.test(js), 'no pause control in the script');
+});
+
 test('site stays noindex and light-only', () => {
   const header = read('includes', 'header.php');
   assert.match(header, /noindex,nofollow/);

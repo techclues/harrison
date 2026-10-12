@@ -57,7 +57,6 @@ body.visari-mode.light-mode .v-hero-content h1 .hero-title-line--accent{color:#d
 body.visari-mode.light-mode .v-hero-copy{color:rgba(255,255,255,.9)}
 body.visari-mode.light-mode .v-actions .v-btn:not(.v-btn-solid){color:#ffffff;border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.08)}
 body.visari-mode.light-mode .v-actions .v-btn:not(.v-btn-solid):hover{background:rgba(255,255,255,.2);border-color:#ffffff}
-body.visari-mode.light-mode .v-hero-foot,body.visari-mode.light-mode .v-hero-foot *{color:#5b626e}
 
 /* Blend section boundaries on Home (no hard edges). */
 /* 1. Hero photo dissolves into the cream About section. */
