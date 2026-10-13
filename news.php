@@ -142,7 +142,7 @@ $featured = array_shift($posts);
       <h1 id="page-heading">News <em>&amp; insights.</em></h1>
       <p class="detail-lead">Practical guidance on tax, VAT, payroll and running a business, in plain English.</p>
     </div>
-    <?= hero_art('architecture.webp', '75% 30%') ?>
+    <?= hero_art('images/stock/business-planning.webp', '50% 45%') ?>
   </div>
 </section>
 

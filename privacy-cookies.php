@@ -13,7 +13,7 @@ require __DIR__ . '/includes/header.php';
       <p class="eyebrow-dark">Privacy</p>
       <h1 id="page-heading">Privacy &amp; Cookies Policy</h1>
     </div>
-    <?= hero_art('architecture.webp', '40% 70%') ?>
+    <?= hero_art('images/stock/financial-review.webp', '50% 45%') ?>
   </div>
 </section>
 

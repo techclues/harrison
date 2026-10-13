@@ -27,7 +27,7 @@ $reviews = [
       <h1 id="page-heading">Client opinions <em>&amp; reviews.</em></h1>
       <p class="detail-lead">We believe in building long-term relationships with our clients. Here is what some of them say about working with us.</p>
     </div>
-    <?= hero_art('conversation.webp', '78% 40%') ?>
+    <?= hero_art('images/stock/client-meeting.webp', '50% 45%') ?>
   </div>
 </section>
 

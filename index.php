@@ -26,11 +26,11 @@ require __DIR__ . '/includes/header.php';
 <?php
 $pinItems = [
   ['Company accounts', '', 'Accurate books. Timely reporting. Financials you can trust.', 'services/accounting-services.php', 'Learn more', 'conversation.webp', '30% 50%'],
-  ['Bookkeeping & VAT', '', 'Smarter systems. Less manual work. Better visibility.', 'services/bookkeeping-services.php', 'Learn more', 'architecture.webp', '50% 65%'],
-  ['Tax & self assessment', '', 'Confidence around what you owe and why.', 'services/personal-tax.php', 'Learn more', 'conversation.webp', '75% 40%'],
-  ['Payroll & pensions', '', 'Reliable support for the people who keep you moving.', 'services/payroll.php', 'Learn more', 'architecture.webp', '50% 20%'],
-  ['Business advisory', '', 'Financial guidance for smarter business decisions.', 'services/business-tax-advice.php', 'Learn more', 'conversation.webp', '55% 75%'],
-  ['Starting a business', '', 'Build a thoughtful foundation for your next chapter.', 'services/company-secretarial-services.php', 'Learn more', 'architecture.webp', '50% 90%'],
+  ['Bookkeeping & VAT', '', 'Smarter systems. Less manual work. Better visibility.', 'services/bookkeeping-services.php', 'Learn more', 'images/stock/bookkeeping-team.webp', '50% 50%'],
+  ['Tax & self assessment', '', 'Confidence around what you owe and why.', 'services/personal-tax.php', 'Learn more', 'images/stock/financial-review.webp', '50% 50%'],
+  ['Payroll & pensions', '', 'Reliable support for the people who keep you moving.', 'services/payroll.php', 'Learn more', 'images/stock/business-planning.webp', '50% 50%'],
+  ['Business advisory', '', 'Financial guidance for smarter business decisions.', 'services/business-tax-advice.php', 'Learn more', 'images/stock/client-meeting.webp', '50% 50%'],
+  ['Starting a business', '', 'Build a thoughtful foundation for your next chapter.', 'who-we-help.php#start-ups', 'Learn more', 'architecture.webp', '50% 60%'],
 ];
 $pinEyebrow = 'Our services';
 $pinHeading = 'The financial engine<br><em>behind your business.</em>';
