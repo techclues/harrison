@@ -63,13 +63,13 @@ const CONTACT = [
  */
 function hero_art(string $src, string $pos = '50% 50%', string $basePath = ''): string
 {
-    return '<figure class="hero-art"><img src="' . h($basePath . 'assets/' . $src) . '" alt="" loading="eager" style="object-position: ' . h($pos) . '"></figure>';
+    return '<figure class="hero-art"><img src="' . h($basePath . 'assets/' . $src) . '" alt="" loading="eager" fetchpriority="high" decoding="async" style="object-position: ' . h($pos) . '"></figure>';
 }
 
 /** Deterministic fallback photo + crop for pages that have no photo of their own. */
 function hero_fallback(string $slug): array
 {
-    $photos = ['conversation.webp', 'architecture.webp'];
+    $photos = ['images/stock/financial-review.webp', 'images/stock/business-planning.webp'];
     $crops = ['30% 45%', '70% 35%', '50% 20%', '62% 70%', '15% 55%', '85% 50%'];
     $n = crc32($slug);
     return [$photos[$n % 2], $crops[intdiv($n, 2) % count($crops)]];

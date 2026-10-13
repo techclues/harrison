@@ -8,7 +8,7 @@ require __DIR__ . '/includes/header.php';
 $services = services();
 ?>
 <section class="detail-hero" aria-labelledby="page-heading">
-  <div class="wrap detail-hero-inner has-art" data-reveal>
+  <div class="wrap detail-hero-inner has-art">
     <div class="hero-copy">
       <p class="eyebrow-dark">Who we help</p>
       <h1 id="page-heading">Support that fits <em>your situation.</em></h1>

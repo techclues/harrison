@@ -8,7 +8,7 @@ $isAboutSub = true;
 require __DIR__ . '/includes/header.php';
 ?>
 <section class="detail-hero" aria-labelledby="page-heading">
-  <div class="wrap detail-hero-inner has-art" data-reveal>
+  <div class="wrap detail-hero-inner has-art">
     <div class="hero-copy">
       <p class="eyebrow-dark">Privacy</p>
       <h1 id="page-heading">Privacy &amp; Cookies Policy</h1>

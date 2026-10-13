@@ -77,6 +77,43 @@ body.visari-mode .v-hero-copy{color:rgba(255,255,255,.9);font-size:18px;max-widt
 @media(max-width:960px){.v-about{padding:90px 0}.v-about .v-shell{grid-template-columns:1fr;gap:55px}.v-about .v-copy{max-width:700px}.v-about .v-copy h2{font-size:clamp(39px,6vw,56px)}}
 @media(max-width:680px){.v-about{min-height:0;padding:78px 0 88px}.v-about .v-split-image{height:430px}.v-about .v-copy h2{font-size:clamp(34px,9.5vw,46px);line-height:1.22}.v-about .v-split-image::before{width:77%;height:66%}.v-about .v-split-image img{width:72%;height:44%}}
 
+/* About label: glowing gold outline with a refined hover fill. */
+.v-about .v-label{position:relative;isolation:isolate;border-color:transparent;background:linear-gradient(#242e3d,#242e3d) padding-box,linear-gradient(90deg,rgba(215,187,114,.35),var(--gold-bright),rgba(215,187,114,.35)) 0 0/240% 100% border-box;animation:about-border-sweep 6s ease-in-out 2s infinite;box-shadow:0 0 0 1px rgba(215,187,114,.22),0 0 18px rgba(215,187,114,.16);transition:color .35s ease,box-shadow .35s ease,transform .35s var(--ease);overflow:hidden}
+.v-about .v-label::after{content:"ABOUT HARRISON";position:relative;z-index:1;font-size:14px;letter-spacing:0;text-transform:uppercase}
+.v-about .v-label:hover{color:var(--brand-ink);background:linear-gradient(135deg,var(--gold-bright),var(--brand-gold-light));transform:translateY(-2px);box-shadow:0 0 0 1px var(--gold-bright),0 0 28px rgba(215,187,114,.52)}
+.v-about .v-label:hover::before{color:var(--brand-ink);transform:rotate(18deg) scale(1.08)}
+.v-about .v-label:hover::after{color:var(--brand-ink)}
+.v-about .v-label:focus-visible{outline:2px solid var(--gold-bright);outline-offset:4px}
+@keyframes about-border-sweep{0%,28%{background-position:0 0}48%{background-position:100% 0}68%,100%{background-position:0 0}}
+@media(prefers-reduced-motion:reduce){.v-about .v-label{animation:none;background:linear-gradient(#242e3d,#242e3d) padding-box,linear-gradient(90deg,var(--gold-bright),rgba(215,187,114,.35)) border-box}}
+
+/* Final About label override: real HTML copy and an intermittent left-to-right glow. */
+.v-about .v-label{border:1px solid transparent!important;background:linear-gradient(#242e3d,#242e3d) padding-box,linear-gradient(90deg,rgba(215,187,114,.32),var(--gold-bright),rgba(215,187,114,.32)) 0 0/240% 100% border-box!important;animation:about-border-sweep 6s ease-in-out 2s infinite!important;box-shadow:0 0 14px rgba(215,187,114,.2)!important}
+.v-about .v-label::after{content:none!important}
+.v-about .v-label:hover{background:linear-gradient(#242e3d,#242e3d) padding-box,linear-gradient(90deg,var(--gold-bright),#fff,var(--gold-bright)) 0 0/240% 100% border-box!important;box-shadow:0 0 24px rgba(215,187,114,.55)!important}
+@media(prefers-reduced-motion:reduce){.v-about .v-label{animation:none!important}}
+
+/* Keep the original light About pill: navy lettering, gold outline, no solid dark fill. */
+body.visari-mode.light-mode .v-about .v-label{color:var(--brand-navy)!important;background:linear-gradient(#f8f8f8,#f8f8f8) padding-box,linear-gradient(90deg,rgba(160,131,89,.35),var(--brand-gold-light),rgba(160,131,89,.35)) 0 0/240% 100% border-box!important;border-color:transparent!important;box-shadow:0 0 14px rgba(160,131,89,.2)!important}
+body.visari-mode.light-mode .v-about .v-label::before{color:var(--brand-gold)!important}
+body.visari-mode.light-mode .v-about .v-label::after{content:none!important}
+body.visari-mode.light-mode .v-about .v-label:hover{color:var(--brand-navy)!important;background:linear-gradient(var(--brand-gold-light),var(--brand-gold-light)) padding-box,linear-gradient(90deg,var(--brand-gold),#fff,var(--brand-gold)) 0 0/240% 100% border-box!important;box-shadow:0 0 24px rgba(160,131,89,.48)!important}
+
+/* Home audience cards: turn warm gold on hover while keeping the content readable. */
+body.visari-mode.light-mode .v-serve-grid article{transition:transform .35s var(--ease),background .35s ease,border-color .35s ease,box-shadow .35s ease,color .35s ease}
+body.visari-mode.light-mode .v-serve-grid article:hover{background:var(--brand-gold-light);border-color:var(--brand-gold)!important;box-shadow:0 22px 44px rgba(160,131,89,.24);transform:translateY(-7px)}
+body.visari-mode.light-mode .v-serve-grid article:hover h3,body.visari-mode.light-mode .v-serve-grid article:hover p,body.visari-mode.light-mode .v-serve-grid article:hover a{color:var(--brand-navy)}
+body.visari-mode.light-mode .v-serve-grid article:hover a span{color:var(--brand-navy)}
+
+/* About label: retain the original light pill; only the outline gets a travelling glow. */
+body.visari-mode.light-mode .v-about .v-label{position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:10px;min-height:42px;padding:9px 16px!important;border:1px solid var(--brand-gold)!important;border-radius:999px!important;background:#f8f8f8!important;color:var(--brand-navy)!important;box-shadow:0 0 16px rgba(160,131,89,.18)!important;overflow:visible!important;transform:none!important}
+body.visari-mode.light-mode .v-about .v-label span{position:relative;z-index:1;color:var(--brand-navy)!important;font-size:14px;letter-spacing:0;text-transform:uppercase}
+body.visari-mode.light-mode .v-about .v-label::before{position:relative;z-index:1;color:var(--brand-gold)!important;font-size:15px}
+body.visari-mode.light-mode .v-about .v-label::after{content:""!important;position:absolute;z-index:2;top:-3px;left:-36%;width:30%;height:calc(100% + 6px);border:2px solid var(--brand-gold-light);border-radius:inherit;background:transparent!important;box-shadow:0 0 6px var(--brand-gold-light),0 0 16px rgba(215,187,114,.72);-webkit-mask:none;mask:none;animation:about-border-glow 6s ease-in-out 2s infinite;pointer-events:none}
+body.visari-mode.light-mode .v-about .v-label:hover{background:#f8f8f8!important;color:var(--brand-navy)!important;box-shadow:0 0 20px rgba(160,131,89,.24)!important;transform:none!important}
+@keyframes about-border-glow{0%,28%{transform:translateX(0);opacity:0}36%{opacity:1}62%{transform:translateX(450%);opacity:1}72%,100%{transform:translateX(450%);opacity:0}}
+@media(prefers-reduced-motion:reduce){body.visari-mode.light-mode .v-about .v-label::after{animation:none;background-position:0 0;opacity:.7}}
+
 /* Clients strip: clean reference treatment, with no divider rules */
 .v-industries{border:0!important;padding:78px 0 96px;background:#242e3d}.v-industries p{text-align:center;font-size:29px;line-height:1.2;margin:0 0 40px;color:#f1f1f1}.v-industries .v-industry-grid{display:flex;align-items:center;justify-content:center;gap:clamp(28px,5vw,78px)}.v-industries .v-industry-grid span{display:block;white-space:nowrap;color:#9ca1a8;opacity:.5;font-size:clamp(11px,1.15vw,17px);font-weight:700;letter-spacing:.08em;filter:grayscale(1)}.v-industries .v-industry-grid span:nth-child(2){font-size:clamp(14px,1.5vw,22px);font-weight:500;letter-spacing:-.03em}.v-industries .v-industry-grid span:nth-child(3){font-family:var(--display);font-weight:400;font-size:clamp(18px,1.7vw,25px);letter-spacing:-.03em}.v-industries .v-industry-grid span:nth-child(4){font-size:clamp(13px,1.4vw,21px);font-weight:500;letter-spacing:-.04em}.v-industries .v-industry-grid span:nth-child(5){font-size:clamp(11px,1.25vw,18px);letter-spacing:.12em}
 @media(max-width:680px){.v-industries{padding:62px 0 72px}.v-industries p{font-size:23px;margin-bottom:31px}.v-industries .v-industry-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 14px;text-align:center}.v-industries .v-industry-grid span{white-space:normal}}

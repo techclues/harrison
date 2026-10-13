@@ -21,7 +21,7 @@ $reviews = [
 ];
 ?>
 <section class="detail-hero" aria-labelledby="page-heading">
-  <div class="wrap detail-hero-inner has-art" data-reveal>
+  <div class="wrap detail-hero-inner has-art">
     <div class="hero-copy">
       <p class="eyebrow-dark">Testimonials</p>
       <h1 id="page-heading">Client opinions <em>&amp; reviews.</em></h1>

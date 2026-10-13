@@ -8,7 +8,7 @@ $currentNav = 'appointment';
 require __DIR__ . '/includes/header.php';
 ?>
 <section class="detail-hero" aria-labelledby="page-heading">
-  <div class="wrap detail-hero-inner has-art" data-reveal>
+  <div class="wrap detail-hero-inner has-art">
     <div class="hero-copy">
       <p class="eyebrow-dark">Book an appointment</p>
       <h1 id="page-heading">Book a time <em>that suits you.</em></h1>

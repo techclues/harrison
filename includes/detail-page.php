@@ -70,7 +70,7 @@ $processSteps = [
 require __DIR__ . '/header.php';
 ?>
 <section class="detail-hero detail-hero--navy" aria-labelledby="page-heading">
-  <div class="wrap detail-hero-inner has-art" data-reveal>
+  <div class="wrap detail-hero-inner has-art" data-detail-hero>
     <div class="hero-copy">
       <nav class="crumbs" aria-label="Breadcrumb">
         <ol>
@@ -101,14 +101,14 @@ require __DIR__ . '/header.php';
 
 <section class="page-section detail-body" aria-label="<?= h($record['title']) ?> details">
   <div class="wrap detail-layout">
-    <article class="detail-article">
+    <article class="detail-article" data-detail-content>
 <?php if ($intro): ?>
       <div class="detail-intro">
 <?php $renderBlocks($intro); ?>
       </div>
 <?php endif; ?>
 <?php foreach ($sections as $n => $sec): ?>
-      <section class="detail-block<?= $asCards ? '' : ' is-flat' ?>" id="<?= h($sec['id']) ?>" aria-labelledby="<?= h($sec['id']) ?>-title">
+       <section class="detail-block<?= $asCards ? '' : ' is-flat' ?>" id="<?= h($sec['id']) ?>" aria-labelledby="<?= h($sec['id']) ?>-title" data-detail-section>
 <?php if ($asCards && count($sections) >= 3): ?>
         <span class="block-num" aria-hidden="true"><?= sprintf('%02d', $n + 1) ?></span>
 <?php endif; ?>
@@ -145,7 +145,7 @@ require __DIR__ . '/header.php';
     <h2 id="process-heading">Good relationships make <em>good advice.</em></h2>
     <div class="process-grid">
 <?php foreach ($processSteps as $i => [$stepTitle, $stepText]): ?>
-      <article class="process-card"><span class="process-num" aria-hidden="true"><?= sprintf('%02d', $i + 1) ?></span><h3><?= h($stepTitle) ?></h3><p><?= h($stepText) ?></p></article>
+      <article class="process-card" data-detail-card><span class="process-num" aria-hidden="true"><?= sprintf('%02d', $i + 1) ?></span><h3><?= h($stepTitle) ?></h3><p><?= h($stepText) ?></p></article>
 <?php endforeach; ?>
     </div>
   </div>

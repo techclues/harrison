@@ -38,7 +38,9 @@
     '.contact-form > .field, .contact-form > .field-row, .contact-form > button',
   ];
   const FADE_SMALL = ['.check-list li', '.step-list li', '.tick-list li'];
-  const MASK = ['.hero-art', '.manifesto-figure', '.who-photo', '.post-feature-art', '.post-card-art', '.detail-figure'];
+  // Hero artwork is above the fold and should paint immediately; the remaining editorial images
+  // can use the softer viewport reveal without making the first screen feel late.
+  const MASK = ['.manifesto-figure', '.who-photo', '.post-feature-art', '.post-card-art', '.detail-figure'];
   const PARALLAX = ['.hero-art', '.manifesto-figure', '.who-photo'];
 
   const tagged = [];

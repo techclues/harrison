@@ -8,6 +8,6 @@ declare(strict_types=1);
  */
 return [
     ['src' => 'conversation.webp', 'w' => 1536, 'h' => 1024, 'pos' => '50% 50%', 'alt' => 'An accountant and a client reviewing figures together in a bright office'],
-    ['src' => 'images/hero/boardroom-skyline.webp', 'w' => 1366, 'h' => 768, 'pos' => '50% 45%', 'alt' => 'Business leaders meeting in a boardroom overlooking a city skyline'],
-    ['src' => 'architecture.webp', 'w' => 1122, 'h' => 1402, 'pos' => '50% 58%', 'alt' => 'Sunlit modern building with a curved facade and a clear path upwards'],
+    ['src' => 'images/stock/financial-review.webp', 'w' => 2400, 'h' => 1600, 'pos' => '50% 52%', 'alt' => 'Professional reviewing financial figures and notes at a desk'],
+    ['src' => 'images/stock/business-planning.webp', 'w' => 2400, 'h' => 1600, 'pos' => '50% 44%', 'alt' => 'Business team planning strategy together in a bright meeting room'],
 ];

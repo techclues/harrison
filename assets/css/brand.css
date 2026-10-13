@@ -157,3 +157,22 @@ body.visari-mode :is(.jump-chips a,.jump-label){font-size:var(--fs-desc)!importa
 body.visari-mode .block-num,body.visari-mode .process-num{font-family:var(--font-heading)!important;font-size:var(--fs-h3)!important;font-weight:var(--fw-heading)!important}
 body.visari-mode .detail-block .block-num{color:var(--brand-gold)}
 body.visari-mode .tick-grid li,body.visari-mode .tick-list li,body.visari-mode .detail-block p,body.visari-mode .detail-intro p{color:var(--color-text)}
+
+/* Shared card interaction: every light-theme card warms to Harrison gold on pointer hover. */
+@media (hover:hover){
+  body.visari-mode.light-mode :is(.v-serve-grid article,.v-service-list a,.service-feature-card,.catalogue-card,.related-card,.audience-card,.process-card,.principle-card,.review-card,.post-card,.cta-card,.aside-card,.pin-item,.v-faq-list details){
+    transition:transform .35s var(--ease),background .35s ease,border-color .35s ease,box-shadow .35s ease,color .35s ease;
+  }
+  body.visari-mode.light-mode :is(.v-serve-grid article,.v-service-list a,.service-feature-card,.catalogue-card,.related-card,.audience-card,.process-card,.principle-card,.review-card,.post-card,.cta-card,.aside-card,.pin-item,.v-faq-list details):hover{
+    background:var(--brand-gold-light)!important;
+    border-color:var(--brand-gold)!important;
+    box-shadow:0 22px 44px rgba(160,131,89,.24)!important;
+    color:var(--brand-navy)!important;
+    transform:translateY(-5px);
+  }
+  body.visari-mode.light-mode :is(.v-serve-grid article,.v-service-list a,.service-feature-card,.catalogue-card,.related-card,.audience-card,.process-card,.principle-card,.review-card,.post-card,.cta-card,.aside-card,.pin-item,.v-faq-list details):hover :is(h2,h3,h4,strong,p,span,summary,a,dt,dd){color:var(--brand-navy)!important}
+  body.visari-mode.light-mode :is(.v-serve-grid article,.v-service-list a,.service-feature-card,.catalogue-card,.related-card,.audience-card,.process-card,.principle-card,.review-card,.post-card,.cta-card,.aside-card,.pin-item,.v-faq-list details):hover img{filter:saturate(1.08)}
+  body.visari-mode.light-mode .detail-block:hover{background:var(--surface)!important;border-color:var(--color-border)!important;box-shadow:none!important;transform:none!important}
+  body.visari-mode.light-mode .tick-grid li{transition:transform .35s var(--ease),background .35s ease,border-color .35s ease,box-shadow .35s ease,color .35s ease}
+  body.visari-mode.light-mode .tick-grid li:hover{background:var(--brand-gold-light)!important;border-color:var(--brand-gold)!important;box-shadow:0 14px 28px rgba(160,131,89,.2);transform:translateY(-3px);color:var(--brand-navy)}
+}

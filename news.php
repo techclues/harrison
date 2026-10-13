@@ -136,7 +136,7 @@ $posts = [
 $featured = array_shift($posts);
 ?>
 <section class="detail-hero" aria-labelledby="page-heading">
-  <div class="wrap detail-hero-inner has-art" data-reveal>
+  <div class="wrap detail-hero-inner has-art">
     <div class="hero-copy">
       <p class="eyebrow-dark">News</p>
       <h1 id="page-heading">News <em>&amp; insights.</em></h1>

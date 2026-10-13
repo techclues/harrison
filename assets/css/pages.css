@@ -237,6 +237,36 @@ body.visari-mode.light-mode .header-cta:hover{background:var(--brand-gold);borde
 .audience-more{margin-top:18px;color:var(--brand-navy);font-weight:700;text-decoration:underline;text-decoration-color:var(--brand-gold);text-underline-offset:4px}
 @media(max-width:600px){.field-row{grid-template-columns:minmax(0,1fr)}}
 
+/* Modern service detail polish: layered depth, editorial cards and subtle interaction. */
+.detail-hero--navy{isolation:isolate;background:linear-gradient(118deg,#242e3d 0%,#222d65 58%,#242e3d 100%)}
+.detail-hero--navy::before{content:"";position:absolute;inset:-25% -10% auto auto;width:min(720px,70vw);height:620px;background:radial-gradient(circle,rgba(215,187,114,.24),transparent 64%);filter:blur(8px);pointer-events:none;z-index:-1;animation:detail-glow 12s ease-in-out infinite alternate}
+.detail-hero-inner{position:relative;z-index:1}
+.detail-hero .hero-copy{position:relative;z-index:2}
+.detail-hero .hero-art{transform:rotate(1.5deg);transition:transform .8s var(--ease),box-shadow .8s ease}
+.detail-hero:hover .hero-art{transform:rotate(0) translateY(-7px) scale(1.015);box-shadow:0 38px 90px rgba(36,46,61,.56)}
+.hero-actions .btn{transition:transform .3s var(--ease),box-shadow .3s ease,background .3s ease}
+.hero-actions .btn:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(36,46,61,.18)}
+.jump-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+.jump-chips a{padding:8px 13px;border:1px solid rgba(255,255,255,.24);border-radius:999px;color:rgba(255,255,255,.85);font-size:12px;text-decoration:none;transition:background .25s ease,border-color .25s ease,transform .25s ease}
+.jump-chips a:hover{background:rgba(255,255,255,.12);border-color:var(--brand-gold-light);transform:translateY(-2px)}
+.detail-intro{max-width:720px;padding:28px 30px;border-left:3px solid var(--brand-gold);border-radius:0 18px 18px 0;background:linear-gradient(100deg,#fff,#f3f3f3);box-shadow:0 18px 45px rgba(36,46,61,.06)}
+.detail-block{position:relative;padding:30px 34px;border:1px solid rgba(36,46,61,.1);border-radius:20px;background:rgba(255,255,255,.72);box-shadow:0 16px 40px rgba(36,46,61,.045);transition:transform .35s var(--ease),box-shadow .35s ease,border-color .35s ease}
+.detail-block:hover{transform:translateY(-4px);border-color:rgba(160,131,89,.5);box-shadow:0 24px 52px rgba(36,46,61,.1)}
+.detail-block h2{margin-top:0!important}
+.block-num{position:absolute;top:24px;right:28px;color:var(--brand-gold);font-size:12px;letter-spacing:.18em}
+.detail-aside{filter:drop-shadow(0 16px 32px rgba(36,46,61,.05))}
+.aside-nav li{transition:transform .25s ease}
+.aside-nav li:hover{transform:translateX(5px)}
+.process-band{background:linear-gradient(180deg,#fff,#eeeeee)}
+.process-grid{perspective:900px}
+.process-card{transition:transform .4s var(--ease),box-shadow .4s ease,border-color .4s ease}
+.process-card:hover{transform:translateY(-8px) rotateX(2deg);box-shadow:0 22px 45px rgba(36,46,61,.12);border-color:rgba(160,131,89,.55)}
+.related-card{position:relative;overflow:hidden}
+.related-card::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--brand-gold);transform:scaleY(0);transform-origin:bottom;transition:transform .35s var(--ease)}
+.related-card:hover::before{transform:scaleY(1)}
+@keyframes detail-glow{from{transform:translate3d(-3%,0,0) scale(.95)}to{transform:translate3d(7%,5%,0) scale(1.08)}}
+@media(prefers-reduced-motion:reduce){.detail-hero--navy::before{animation:none}.detail-hero .hero-art,.detail-block,.process-card,.jump-chips a,.hero-actions .btn{transition:none}.detail-hero:hover .hero-art,.detail-block:hover,.process-card:hover,.jump-chips a:hover,.hero-actions .btn:hover{transform:none}}
+
 /* Footer: brand + three link columns */
 .footer-top.footer-top--wide{display:grid;grid-template-columns:minmax(0,1.2fr) repeat(3,minmax(0,1fr));gap:32px}
 .footer-contact{margin-top:22px;font-style:normal;color:var(--color-text-muted)}
@@ -606,7 +636,7 @@ body.visari-mode .manifesto-grid h2{margin-bottom:18px}
 .jump-chips a{padding:7px 14px;border:1px solid rgba(255,255,255,.35);border-radius:999px;color:var(--white);text-decoration:none;transition:background .25s ease,border-color .25s ease}
 .jump-chips a:hover,.jump-chips a:focus-visible{background:rgba(255,255,255,.16);border-color:var(--brand-gold-light);outline:none}
 
-.detail-body{background:var(--white)}
+.detail-body{background:var(--surface)}
 .detail-article{max-width:none}
 .detail-intro{max-width:68ch}
 .detail-intro p{margin:0 0 16px;line-height:1.75}
@@ -647,3 +677,9 @@ body.visari-mode .manifesto-grid h2{margin-bottom:18px}
   .detail-hero--navy .hero-art{outline-offset:6px}
 }
 @media(prefers-reduced-motion:reduce){.jump-chips a,.related-arrow{transition:none}}
+
+/* Let the navy service hero dissolve gently into the white content section below. */
+.detail-hero--navy{isolation:isolate}
+.detail-hero--navy::after{content:"";position:absolute;z-index:2;left:0;right:0;bottom:-1px;height:clamp(62px,8vw,112px);background:linear-gradient(180deg,rgba(34,45,101,0),var(--surface));pointer-events:none}
+.detail-hero--navy .detail-hero-inner{position:relative;z-index:3}
+@media(prefers-reduced-motion:reduce){.detail-hero--navy::after{height:clamp(72px,10vw,130px)}}
