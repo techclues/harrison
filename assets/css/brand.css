@@ -145,3 +145,15 @@ body.visari-mode .cta-card .cta-card-title{color:var(--brand-gold-light)!importa
 
 /* The header button keeps its gold fill on hover so the glowing outline reads as an addition, not a replacement */
 body.visari-mode.light-mode .site-header .header-cta:hover,body.visari-mode.light-mode .site-header .header-cta:focus-visible{background:var(--brand-gold-light);border-color:var(--brand-gold-light);color:var(--brand-ink)}
+
+
+/* Service / Who We Help hero: white and gold type on the navy band */
+body.visari-mode .detail-hero--navy{padding-top:clamp(150px,15vw,200px)!important;padding-bottom:clamp(56px,6vw,88px)}
+body.visari-mode .detail-hero--navy h1{color:var(--white)!important}
+body.visari-mode .detail-hero--navy h1 em{color:var(--brand-gold-light)!important}
+body.visari-mode .detail-hero--navy .eyebrow-dark{color:var(--brand-gold-light)!important}
+body.visari-mode .detail-hero--navy .eyebrow-dark::before{background:var(--brand-gold-light)}
+body.visari-mode :is(.jump-chips a,.jump-label){font-size:var(--fs-desc)!important;font-weight:var(--fw-desc)!important}
+body.visari-mode .block-num,body.visari-mode .process-num{font-family:var(--font-heading)!important;font-size:var(--fs-h3)!important;font-weight:var(--fw-heading)!important}
+body.visari-mode .detail-block .block-num{color:var(--brand-gold)}
+body.visari-mode .tick-grid li,body.visari-mode .tick-list li,body.visari-mode .detail-block p,body.visari-mode .detail-intro p{color:var(--color-text)}

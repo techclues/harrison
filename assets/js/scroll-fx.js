@@ -27,7 +27,7 @@
     // section headings and intros
     'main h2', '.section-heading-row > *', '.value-intro > *', '.v-section-intro > *',
     // article body
-    '.detail-article > :is(h2, p, ul, address)', '.policy > *',
+    '.detail-intro > *', '.detail-block', '.process-card', '.process-band .eyebrow-dark, .process-band h2', '.policy > *',
     // cards, panels and grid items
     '.related-card', '.audience-card', '.post-card', '.post-feature', '.review-card', '.principle-card',
     '.cta-card', '.aside-card', '.value-grid > article', '.v-serve-grid > article', '.v-faq-list > details',
@@ -37,7 +37,7 @@
     // forms
     '.contact-form > .field, .contact-form > .field-row, .contact-form > button',
   ];
-  const FADE_SMALL = ['.check-list li', '.step-list li'];
+  const FADE_SMALL = ['.check-list li', '.step-list li', '.tick-list li'];
   const MASK = ['.hero-art', '.manifesto-figure', '.who-photo', '.post-feature-art', '.post-card-art', '.detail-figure'];
   const PARALLAX = ['.hero-art', '.manifesto-figure', '.who-photo'];
 

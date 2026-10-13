@@ -472,6 +472,29 @@ test('reduced motion: the hero photos still change by themselves, as instant cut
   assert.ok(!/userPaused|toggle/.test(js), 'no pause control in the script');
 });
 
+test('service and Who We Help pages: navy hero with actions, section cards, tick lists, process steps', { skip: !hasPhp }, () => {
+  const tpl = read('includes', 'detail-page.php');
+  assert.match(tpl, /detail-hero detail-hero--navy/);
+  assert.match(tpl, /class="btn btn-gold" href="<\?= h\(\$basePath\) \?>contact\.php">Let’s talk/, 'hero Let’s talk action');
+  assert.match(tpl, /btn-outline-light" href="tel:/, 'hero call action');
+  assert.match(tpl, /\$showJump = count\(\$sections\) >= 3/, 'jump chips on longer pages');
+  assert.match(tpl, /Listen first\.[\s\S]*Agree what matters\.[\s\S]*Stay connected\./, 'the approved process steps');
+  assert.ok(!/class="check-list"/.test(tpl), 'lists use the tick grid');
+  const fwd = p => p.split('\\').join('/');
+  const render = file => spawnSync('php', ['-r', `chdir('${fwd(join(root, dirname(file)))}'); ob_start(); include '${fwd(join(root, file))}'; echo ob_get_clean();`], { cwd: root, encoding: 'utf8' }).stdout;
+  const long = render('services/company-secretarial-services.php');
+  assert.ok((long.match(/class="detail-block"/g) || []).length >= 8, 'a long page becomes section cards');
+  assert.match(long, /class="jump-chips"/);
+  assert.match(long, /class="block-num"/);
+  // every chip points at a real section id
+  for (const [, id] of long.matchAll(/<a href="#(sec-[a-z0-9-]+)"/g)) assert.ok(long.includes(`id="${id}"`), `chip target ${id} exists`);
+  const short = render('who-we-help/start-ups.php');
+  assert.match(short, /class="detail-block is-flat"/, 'a page with one heading flows as plain text');
+  assert.match(short, /class="tick-grid"/);
+  assert.ok(!/class="jump-chips"/.test(short));
+  assert.ok(!render('services/vat.php').includes('Talk to us'), 'no sidebar Talk to us card on service pages');
+});
+
 test('site stays noindex and light-only', () => {
   const header = read('includes', 'header.php');
   assert.match(header, /noindex,nofollow/);

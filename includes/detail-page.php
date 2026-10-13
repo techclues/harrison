@@ -27,9 +27,49 @@ $related = $isService ? $record['related'] : $record['services'];
 $heroArt = $record['image'] !== ''
     ? hero_art('images/pages/' . $record['image'], '50% 50%', $basePath)
     : hero_art($fallbackPhoto, $fallbackCrop, $basePath);
+
+
+/* Group the body into an intro (before the first heading) and one card per heading. */
+$intro = [];
+$sections = [];
+$openSection = null;
+foreach ($record['body'] as [$blockType, $blockValue]) {
+    if ($blockType === 'h') {
+        $label = rtrim($blockValue, ': ');
+        $anchor = 'sec-' . trim((string) preg_replace('/[^a-z0-9]+/', '-', strtolower($label)), '-');
+        $sections[] = ['title' => $label, 'id' => $anchor, 'blocks' => []];
+        $openSection = array_key_last($sections);
+    } elseif ($openSection === null) {
+        $intro[] = [$blockType, $blockValue];
+    } else {
+        $sections[$openSection]['blocks'][] = [$blockType, $blockValue];
+    }
+}
+
+/** Renders paragraph and list blocks (lists of four or more become a two-column tick grid). */
+$renderBlocks = static function (array $blocks): void {
+    foreach ($blocks as [$type, $value]) {
+        if ($type === 'ul') {
+            echo '<ul class="', count($value) >= 4 ? 'tick-grid' : 'tick-list', '">';
+            foreach ($value as $item) echo '<li>', h($item), '</li>';
+            echo '</ul>', "
+";
+        } else {
+            echo '<p>', h($value), '</p>', "
+";
+        }
+    }
+};
+$showJump = count($sections) >= 3;
+$asCards = count($sections) >= 2;   // a page with a single heading reads better as flowing text than as one big card
+$processSteps = [
+    ['Listen first.', 'Understand the circumstances before discussing the solution.'],
+    ['Agree what matters.', 'Make the scope, responsibilities and next steps clear.'],
+    ['Stay connected.', 'Keep room for questions as your plans and priorities evolve.'],
+];
 require __DIR__ . '/header.php';
 ?>
-<section class="detail-hero" aria-labelledby="page-heading">
+<section class="detail-hero detail-hero--navy" aria-labelledby="page-heading">
   <div class="wrap detail-hero-inner has-art" data-reveal>
     <div class="hero-copy">
       <nav class="crumbs" aria-label="Breadcrumb">
@@ -42,6 +82,18 @@ require __DIR__ . '/header.php';
       <p class="eyebrow-dark"><?= h($isService ? SERVICE_GROUPS[$record['group']] : 'Who we help') ?></p>
       <h1 id="page-heading"><?= h($record['title']) ?></h1>
       <p class="detail-lead"><?= h($record['lead']) ?></p>
+      <div class="hero-actions">
+        <a class="btn btn-gold" href="<?= h($basePath) ?>contact.php">Let’s talk</a>
+        <a class="btn btn-outline-light" href="tel:<?= h(CONTACT['phone_href']) ?>">Call <?= h(CONTACT['phone']) ?></a>
+      </div>
+<?php if ($showJump): ?>
+      <nav class="jump-chips" aria-label="On this page">
+        <span class="jump-label">On this page</span>
+<?php foreach ($sections as $sec): ?>
+        <a href="#<?= h($sec['id']) ?>"><?= h($sec['title']) ?></a>
+<?php endforeach; ?>
+      </nav>
+<?php endif; ?>
     </div>
     <?= $heroArt ?>
   </div>
@@ -50,18 +102,19 @@ require __DIR__ . '/header.php';
 <section class="page-section detail-body" aria-label="<?= h($record['title']) ?> details">
   <div class="wrap detail-layout">
     <article class="detail-article">
-<?php foreach ($record['body'] as [$blockType, $blockValue]): ?>
-<?php if ($blockType === 'h'): ?>
-      <h2><?= h($blockValue) ?></h2>
-<?php elseif ($blockType === 'ul'): ?>
-      <ul class="check-list">
-<?php foreach ($blockValue as $blockItem): ?>
-        <li><?= h($blockItem) ?></li>
-<?php endforeach; ?>
-      </ul>
-<?php else: ?>
-      <p><?= h($blockValue) ?></p>
+<?php if ($intro): ?>
+      <div class="detail-intro">
+<?php $renderBlocks($intro); ?>
+      </div>
 <?php endif; ?>
+<?php foreach ($sections as $n => $sec): ?>
+      <section class="detail-block<?= $asCards ? '' : ' is-flat' ?>" id="<?= h($sec['id']) ?>" aria-labelledby="<?= h($sec['id']) ?>-title">
+<?php if ($asCards && count($sections) >= 3): ?>
+        <span class="block-num" aria-hidden="true"><?= sprintf('%02d', $n + 1) ?></span>
+<?php endif; ?>
+        <h2 id="<?= h($sec['id']) ?>-title"><?= h($sec['title']) ?></h2>
+<?php $renderBlocks($sec['blocks']); ?>
+      </section>
 <?php endforeach; ?>
     </article>
 
@@ -86,6 +139,18 @@ require __DIR__ . '/header.php';
   </div>
 </section>
 
+<section class="page-section process-band" aria-labelledby="process-heading">
+  <div class="wrap">
+    <p class="eyebrow-dark">How we work with you</p>
+    <h2 id="process-heading">Good relationships make <em>good advice.</em></h2>
+    <div class="process-grid">
+<?php foreach ($processSteps as $i => [$stepTitle, $stepText]): ?>
+      <article class="process-card"><span class="process-num" aria-hidden="true"><?= sprintf('%02d', $i + 1) ?></span><h3><?= h($stepTitle) ?></h3><p><?= h($stepText) ?></p></article>
+<?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
 <section class="page-section related-section" aria-labelledby="related-heading">
   <div class="wrap">
     <h2 id="related-heading"><?= $isService ? 'Related services' : 'Services that help' ?></h2>
@@ -94,6 +159,7 @@ require __DIR__ . '/header.php';
       <a class="related-card" href="<?= h(service_url($relatedSlug, $basePath)) ?>" data-reveal>
         <strong><?= h($relatedService['title']) ?></strong>
         <span><?= h($relatedService['summary']) ?></span>
+        <i class="related-arrow" aria-hidden="true">→</i>
       </a>
 <?php endforeach; ?>
     </div>
