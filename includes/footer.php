@@ -11,7 +11,7 @@
       <div><p class="footer-label"><a href="<?= h($basePath) ?>who-we-help.php">Who We Help</a></p><nav class="footer-links" aria-label="Who we help"><?php foreach (audiences() as $navSlug => $navAudience): ?><a href="<?= h(audience_url($navSlug, $basePath)) ?>"><?= h($navAudience['title']) ?></a><?php endforeach; ?></nav></div>
       <div><p class="footer-label"><a href="<?= h($basePath) ?>services.php">What We Provide</a></p><nav class="footer-links footer-links-services" aria-label="Service links"><?php foreach (services() as $navSlug => $navService): ?><a href="<?= h(service_url($navSlug, $basePath)) ?>"><?= h($navService['title']) ?></a><?php endforeach; ?></nav></div>
     </div>
-    <div class="footer-bottom"><p>© <?= date('Y') ?> Harrison Accountants. <span>Working draft — content for approval.</span></p><a href="#top">Back to top ↑</a></div>
+    <div class="footer-bottom"><p>© <?= date('Y') ?> Harrison Accountants.</p><p class="footer-credit">Designed &amp; Developed by <a href="https://techclues.co.uk/" target="_blank" rel="noopener">Techclues Ltd</a></p><a href="#top">Back to top ↑</a></div>
   </div>
 </footer>
 <!-- Pin versions before production. These libraries are optional enhancements; navigation works without them. -->
